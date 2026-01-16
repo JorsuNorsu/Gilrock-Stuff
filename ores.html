@@ -146,21 +146,28 @@
 
   const tbody = document.querySelector("tbody");
 
-  function renderTable(list) {
-    tbody.innerHTML = "";
-    list.forEach(ore => {
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td>${ore.name}</td>
-        <td>${ore.rarity}</td>
-        <td>${ore.group}</td>
-        <td>$${ore.value}</td>
-        <td>${ore.minDepth}–${ore.maxDepth === Infinity ? "∞" : ore.maxDepth}</td>
-        <td>${ore.health} HP</td>
-      `;
-      tbody.appendChild(row);
-    });
-  }
+ function renderTable(list) {
+  tbody.innerHTML = "";
+
+  list.forEach(ore => {
+    const depthText =
+      ore.maxDepth === Infinity
+        ? `${ore.minDepth}+`
+        : `${ore.minDepth}–${ore.maxDepth}`;
+
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${ore.name}</td>
+      <td>${ore.rarity}</td>
+      <td>${ore.group}</td>
+      <td>$${ore.value}</td>
+      <td>${depthText}</td>
+      <td>${ore.health} HP</td>
+    `;
+    tbody.appendChild(row);
+  });
+}
+
 
   function oreInLayer(ore, layer) {
     return ore.minDepth < layer.max && ore.maxDepth > layer.min;
@@ -177,6 +184,7 @@
 
   </body>
 </html>
+
 
 
 
