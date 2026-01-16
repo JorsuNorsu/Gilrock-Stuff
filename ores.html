@@ -5,33 +5,53 @@
 <title>Ores</title>
 
 <style>
-  .app {
+:root {
+  --filter-height: 72px;
+  --accent: #3b82f6;
+}
+
+/* ====== BASE ====== */
+body {
+  margin: 0;
+  font-family: Inter, system-ui, Arial, sans-serif;
+  background: #f4f6f8;
+}
+
+.app {
   display: flex;
   min-height: 100vh;
 }
 
+/* ====== SIDEBAR ====== */
 .sidebar {
-  width: 220px;
-  background: linear-gradient(180deg, #0f172a, #020617);
+  width: 96px;
+  background: linear-gradient(180deg, #0b1220, #020617);
   color: white;
-  padding: 20px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
 }
 
+/* LOGO */
 .logo {
-  font-size: 32px;
+  font-size: 42px;
   font-weight: 900;
-  margin-bottom: 30px;
-  color: #3b82f6;
+  color: var(--accent);
+  margin-bottom: 40px;
+  text-decoration: none;
 }
 
+/* NAV */
 .side-nav {
   display: flex;
   flex-direction: column;
   gap: 18px;
-  margin-top: 40px;
+  width: 100%;
 }
 
 .side-item {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -50,46 +70,40 @@
   opacity: 1;
 }
 
+/* ACTIVE BLUE BAR */
+.side-item.active::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 15%;
+  width: 3px;
+  height: 70%;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+/* ICONS */
 .side-item .icon {
-  font-size: 28px;
+  font-size: 34px;
   line-height: 1;
 }
 
+/* LABELS */
 .side-item .label {
-  font-size: 13px;
-  letter-spacing: 0.05em;
+  font-size: 12px;
+  opacity: 0.9;
 }
 
-
+/* ====== CONTENT ====== */
 .content {
   flex: 1;
   padding: 30px;
 }
 
-:root { --filter-height: 72px; }
-
-body {
-  margin: 0;
-  font-family: Inter, system-ui, Arial, sans-serif;
-  background: #f4f6f8;
-}
-
-nav {
-  background: #1f2937;
-  padding: 15px;
-  text-align: center;
-}
-
-nav a {
-  color: white;
-  text-decoration: none;
-  margin: 0 15px;
-  font-weight: bold;
-}
-
+/* ====== CARD ====== */
 .container {
   max-width: 1200px;
-  margin: 50px auto;
+  margin: 0 auto;
   background: white;
   border-radius: 14px;
   box-shadow: 0 10px 25px rgba(0,0,0,.1);
@@ -100,7 +114,7 @@ h1 {
   padding: 20px 0 10px;
 }
 
-/* FILTER BAR */
+/* ====== FILTER BAR ====== */
 .filter-bar {
   position: sticky;
   top: 0;
@@ -155,7 +169,7 @@ h1 {
   opacity: .85;
 }
 
-/* TABLE */
+/* ====== TABLE ====== */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -164,7 +178,6 @@ table {
 thead th {
   position: sticky;
   top: var(--filter-height);
-  z-index: 5;
   background: #1f2937;
   color: white;
   font-size: 13px;
@@ -214,64 +227,62 @@ td:first-child {
 </head>
 
 <body>
+
 <div class="app">
   <aside class="sidebar">
-    <div class="logo">GR</div>
+    <a href="index.html" class="logo">GR</a>
 
-   <nav class="side-nav">
-  <a href="index.html" class="side-item">
-    <span class="icon">⌂</span>
-    <span class="label">Home</span>
-  </a>
+    <nav class="side-nav">
+      <a href="index.html" class="side-item">
+        <span class="icon">⌂</span>
+        <span class="label">Home</span>
+      </a>
 
-  <a href="ores.html" class="side-item active">
-    <span class="icon">⛏</span>
-    <span class="label">Ores</span>
-  </a>
-</nav>
-
+      <a href="ores.html" class="side-item active">
+        <span class="icon">⛏</span>
+        <span class="label">Ores</span>
+      </a>
+    </nav>
   </aside>
 
   <main class="content">
+    <div class="container">
+      <h1>Ores</h1>
 
+      <div class="filter-bar" id="filterBar">
+        <div class="filter-group">
+          <label>Layer</label>
+          <select id="layerSelect">
+            <option value="all">All Layers</option>
+          </select>
+        </div>
 
+        <div class="filter-group">
+          <label>Search</label>
+          <input id="searchInput" placeholder="Ore name...">
+        </div>
 
+        <div class="filter-spacer"></div>
 
-<div class="container">
-  <h1>Ores</h1>
+        <button class="reset-btn" id="resetBtn">Reset Filters</button>
+        <div id="resultCount"></div>
+      </div>
 
-  <div class="filter-bar" id="filterBar">
-    <div class="filter-group">
-      <label>Layer</label>
-      <select id="layerSelect">
-        <option value="all">All Layers</option>
-      </select>
+      <table>
+        <thead>
+          <tr>
+            <th data-sort="name">Name</th>
+            <th data-sort="rarity">Rarity</th>
+            <th>Group</th>
+            <th data-sort="value">Value</th>
+            <th data-sort="depth">Depth</th>
+            <th data-sort="health">Health</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
     </div>
-
-    <div class="filter-group">
-      <label>Search</label>
-      <input id="searchInput" placeholder="Ore name...">
-    </div>
-
-    <div class="filter-spacer"></div>
-
-    <button class="reset-btn" id="resetBtn">Reset Filters</button>
-    <div id="resultCount"></div>
-  </div>
-
-  <table>
-    <thead>
-      <tr>
-        <th data-sort="name">Name</th>
-        <th data-sort="rarity">Rarity</th>
-        <th>Group</th>
-        <th data-sort="value">Value</th>
-        <th data-sort="depth">Depth</th>
-        <th data-sort="health">Health</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+  </main>
 </div>
 
 <script src="ores-data.js"></script>
@@ -289,7 +300,6 @@ const layers = [
   { id:"magma", name:"Magma & Lava Layer", min:8000, max:9000, icon:"🟠" },
   { id:"void", name:"Void Layer", min:9000, max:Infinity, icon:"🟪" }
 ];
-
 
 const rarityColors = {
   Common:"#9ca3af33",
@@ -316,7 +326,7 @@ let currentLayer="all", searchQuery="", sortKey=null, sortDir=1;
 layers.forEach(l=>{
   const o=document.createElement("option");
   o.value=l.id;
-o.textContent = `${l.icon} ${l.name}`;
+  o.textContent = `${l.icon} ${l.name}`;
   layerSelect.appendChild(o);
 });
 
@@ -389,15 +399,13 @@ resetBtn.onclick=()=>{
 
 render();
 
-/* sync sticky offset */
 const fb=document.getElementById("filterBar");
 document.documentElement.style.setProperty("--filter-height", fb.offsetHeight+"px");
 </script>
-    
-  </main>
-</div>
+
 </body>
 </html>
+
 
 
 
