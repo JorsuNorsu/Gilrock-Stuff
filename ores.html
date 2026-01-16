@@ -114,9 +114,9 @@ body {
 .container {
   max-width: 1200px;
   margin: 20px auto 0;
-  background: white;
-  border-radius: 14px;
-  box-shadow: 0 10px 25px rgba(0,0,0,.25);
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 .page-title {
@@ -240,11 +240,11 @@ body {
 
 /* ===== TABLE ===== */
 table {
-  width: 100%;
   border-collapse: separate;
-  border-spacing: 0 10px; /* space between rows */
+  border-spacing: 0 4px;
   background: transparent;
 }
+
 
 
 thead th {
@@ -280,12 +280,13 @@ tbody tr:hover {
 }
 
 tbody tr td:first-child {
-  border-radius: 10px 0 0 10px;
+  border-radius: 6px 0 0 6px;
 }
 
 tbody tr td:last-child {
-  border-radius: 0 10px 10px 0;
+  border-radius: 0 6px 6px 0;
 }
+
 
 td {
   padding: 14px 12px;
@@ -498,6 +499,7 @@ document.documentElement.style.setProperty("--filter-height", fb.offsetHeight+"p
 
 </body>
 </html>
+
 
 
 
