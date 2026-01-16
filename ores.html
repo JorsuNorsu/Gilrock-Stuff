@@ -25,36 +25,56 @@
     }
 
     .container {
-      max-width: 1100px;
-      margin: 60px auto;
+      max-width: 1200px;
+      margin: 50px auto;
       background: white;
-      padding: 30px;
       border-radius: 14px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      overflow: hidden;
     }
 
     h1 {
       text-align: center;
-      margin-bottom: 20px;
+      padding: 20px 0 10px;
     }
 
-    /* CONTROLS */
-    .controls {
+    /* FILTER BAR */
+    .filter-bar {
       display: flex;
-      gap: 12px;
+      gap: 16px;
+      align-items: center;
+      padding: 15px 20px;
+      background: #111827;
+      color: white;
       flex-wrap: wrap;
-      margin-bottom: 10px;
     }
 
-    select, input {
-      padding: 8px 12px;
-      font-size: 15px;
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .filter-group label {
+      font-size: 12px;
+      opacity: 0.85;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .filter-group select,
+    .filter-group input {
+      padding: 8px 10px;
+      font-size: 14px;
+      border-radius: 6px;
+      border: none;
+      min-width: 200px;
     }
 
     #resultCount {
-      margin: 8px 0 12px;
+      margin-left: auto;
       font-size: 14px;
-      color: #555;
+      opacity: 0.85;
     }
 
     table {
@@ -66,7 +86,7 @@
     thead th {
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 5;
       background-color: #1f2937;
       color: white;
       text-transform: uppercase;
@@ -74,22 +94,11 @@
       font-size: 13px;
       border-bottom: 2px solid #000;
       cursor: pointer;
-    }
-
-    th.sorted-asc::after {
-      content: " ▲";
-      font-size: 11px;
-    }
-
-    th.sorted-desc::after {
-      content: " ▼";
-      font-size: 11px;
-    }
-
-    th, td {
       padding: 10px;
-      text-align: center;
     }
+
+    th.sorted-asc::after { content: " ▲"; font-size: 11px; }
+    th.sorted-desc::after { content: " ▼"; font-size: 11px; }
 
     tbody tr {
       border-bottom: 2px solid #000;
@@ -97,6 +106,11 @@
 
     tbody tr:hover {
       background-color: rgba(0,0,0,0.04);
+    }
+
+    td {
+      padding: 10px;
+      text-align: center;
     }
 
     td:first-child {
@@ -116,7 +130,7 @@
 
     button {
       display: block;
-      margin: 25px auto 0;
+      margin: 25px auto;
       padding: 12px 25px;
       font-size: 16px;
       border: none;
@@ -142,27 +156,29 @@
 <div class="container">
   <h1>Ores</h1>
 
-  <div class="controls">
-    <select id="layerSelect">
-      <option value="all">All Layers</option>
-    </select>
+  <!-- FILTERS -->
+  <div class="filter-bar">
+    <div class="filter-group">
+      <label>Layer</label>
+      <select id="layerSelect">
+        <option value="all">All Layers</option>
+      </select>
+    </div>
 
-    <input
-      type="text"
-      id="searchInput"
-      placeholder="Search ore name..."
-      autocomplete="off"
-    >
+    <div class="filter-group">
+      <label>Search</label>
+      <input id="searchInput" type="text" placeholder="Ore name...">
+    </div>
+
+    <div id="resultCount"></div>
   </div>
-
-  <div id="resultCount"></div>
 
   <table>
     <thead>
       <tr>
         <th data-sort="name">Name</th>
         <th data-sort="rarity">Rarity</th>
-        <th data-sort="group">Group</th>
+        <th>Group</th>
         <th data-sort="value">Value</th>
         <th data-sort="depth">Depth</th>
         <th data-sort="health">Health</th>
@@ -171,30 +187,25 @@
     <tbody></tbody>
   </table>
 
-  <a href="index.html">
-    <button>Back to Home</button>
-  </a>
+  <a href="index.html"><button>Back to Home</button></a>
 </div>
 
-<!-- LOAD DATA -->
 <script src="ores-data.js"></script>
 
 <script>
-  /* ---------- LAYERS ---------- */
   const layers = [
-    { id: "stone", name: "Stone Layer", min: 0, max: 1000 },
-    { id: "basalt", name: "Basalt Layer", min: 1000, max: 2000 },
-    { id: "limestone", name: "Limestone Layer", min: 2000, max: 3000 },
-    { id: "gneiss", name: "Gneiss Layer", min: 3000, max: 4000 },
-    { id: "tuff", name: "Tuff Layer", min: 4000, max: 5000 },
-    { id: "marble", name: "Marble Layer", min: 5000, max: 6000 },
-    { id: "obsidian", name: "Obsidian Layer", min: 6000, max: 7000 },
-    { id: "peridotite", name: "Peridotite Layer", min: 7000, max: 8000 },
-    { id: "magma", name: "Magma & Lava Layer", min: 8000, max: 9000 },
-    { id: "void", name: "Void Layer", min: 9000, max: Infinity }
+    { id: "stone", min: 0, max: 1000 },
+    { id: "basalt", min: 1000, max: 2000 },
+    { id: "limestone", min: 2000, max: 3000 },
+    { id: "gneiss", min: 3000, max: 4000 },
+    { id: "tuff", min: 4000, max: 5000 },
+    { id: "marble", min: 5000, max: 6000 },
+    { id: "obsidian", min: 6000, max: 7000 },
+    { id: "peridotite", min: 7000, max: 8000 },
+    { id: "magma", min: 8000, max: 9000 },
+    { id: "void", min: 9000, max: Infinity }
   ];
 
-  /* ---------- RARITY COLORS ---------- */
   const rarityColors = {
     Common: "#9ca3af33",
     Uncommon: "#4ade8033",
@@ -209,7 +220,6 @@
     Eternal: "#8b5cf633"
   };
 
-  /* ---------- STATE ---------- */
   const tbody = document.querySelector("tbody");
   const layerSelect = document.getElementById("layerSelect");
   const searchInput = document.getElementById("searchInput");
@@ -220,136 +230,107 @@
   let sortKey = null;
   let sortDir = 1;
 
-  /* ---------- INIT LAYERS ---------- */
-  layers.forEach(layer => {
-    const option = document.createElement("option");
-    option.value = layer.id;
-    option.textContent = layer.name;
-    layerSelect.appendChild(option);
+  layers.forEach(l => {
+    const o = document.createElement("option");
+    o.value = l.id;
+    o.textContent = l.id.charAt(0).toUpperCase() + l.id.slice(1);
+    layerSelect.appendChild(o);
   });
 
-  /* ---------- HELPERS ---------- */
-  function oreInLayer(ore, layer) {
-    return ore.minDepth < layer.max && ore.maxDepth > layer.min;
+  function parseRarity(r) {
+    return parseInt(r.split("/")[1].replace(/,/g, ""));
   }
 
-  function getFilteredOres() {
-    let filtered = ores;
+  function oreInLayer(o, l) {
+    return o.minDepth < l.max && o.maxDepth > l.min;
+  }
+
+  function getFiltered() {
+    let list = ores;
 
     if (currentLayer !== "all") {
       const layer = layers.find(l => l.id === currentLayer);
-      filtered = filtered.filter(o => oreInLayer(o, layer));
+      list = list.filter(o => oreInLayer(o, layer));
     }
 
     if (searchQuery) {
-      filtered = filtered.filter(o =>
+      list = list.filter(o =>
         o.name.toLowerCase().includes(searchQuery)
       );
     }
 
     if (sortKey) {
-      filtered = [...filtered].sort((a, b) => {
-        let aVal, bVal;
-
+      list = [...list].sort((a, b) => {
+        let A, B;
         switch (sortKey) {
+          case "rarity":
+            A = parseRarity(a.rarity);
+            B = parseRarity(b.rarity);
+            break;
           case "value":
-            aVal = parseFloat(a.value.replace(/[^0-9.]/g, ""));
-            bVal = parseFloat(b.value.replace(/[^0-9.]/g, ""));
+            A = parseFloat(a.value.replace(/[^0-9.]/g, ""));
+            B = parseFloat(b.value.replace(/[^0-9.]/g, ""));
             break;
           case "depth":
-            aVal = a.minDepth;
-            bVal = b.minDepth;
+            A = a.minDepth;
+            B = b.minDepth;
             break;
           default:
-            aVal = a[sortKey];
-            bVal = b[sortKey];
+            A = a[sortKey];
+            B = b[sortKey];
         }
-
-        if (typeof aVal === "string") {
-          return aVal.localeCompare(bVal) * sortDir;
-        }
-
-        return (aVal - bVal) * sortDir;
+        return typeof A === "string"
+          ? A.localeCompare(B) * sortDir
+          : (A - B) * sortDir;
       });
     }
 
-    return filtered;
+    return list;
   }
 
-  function renderTable(list) {
+  function render() {
+    const list = getFiltered();
     tbody.innerHTML = "";
 
-    if (list.length === 0) {
-      tbody.innerHTML = `
-        <tr>
-          <td colspan="6" class="no-results">No ores found</td>
-        </tr>
-      `;
-      resultCount.textContent = "0 ores";
-      return;
+    if (!list.length) {
+      tbody.innerHTML = `<tr><td colspan="6" class="no-results">No ores found</td></tr>`;
     }
 
-    list.forEach(ore => {
-      const bg = rarityColors[ore.group] || "#ffffff";
-
-      const row = document.createElement("tr");
-      row.innerHTML = `
-        <td class="rarity-bg" style="background:${bg}">${ore.name}</td>
-        <td class="rarity-bg" style="background:${bg}">${ore.rarity}</td>
-        <td class="rarity-bg" style="background:${bg}">${ore.group}</td>
-        <td>${ore.value}</td>
-        <td>${ore.maxDepth === Infinity ? `${ore.minDepth}–9000+` : `${ore.minDepth}–${ore.maxDepth}`}</td>
-        <td>${ore.health} HP</td>
+    list.forEach(o => {
+      const bg = rarityColors[o.group] || "#fff";
+      tbody.innerHTML += `
+        <tr>
+          <td class="rarity-bg" style="background:${bg}">${o.name}</td>
+          <td class="rarity-bg" style="background:${bg}">${o.rarity}</td>
+          <td>${o.group}</td>
+          <td>${o.value}</td>
+          <td>${o.maxDepth === Infinity ? `${o.minDepth}–9000+` : `${o.minDepth}–${o.maxDepth}`}</td>
+          <td>${o.health} HP</td>
+        </tr>
       `;
-
-      tbody.appendChild(row);
     });
 
     resultCount.textContent = `${list.length} ores`;
   }
 
-  function updateTable() {
-    renderTable(getFilteredOres());
-  }
-
-  /* ---------- EVENTS ---------- */
-  layerSelect.addEventListener("change", () => {
-    currentLayer = layerSelect.value;
-    updateTable();
-  });
-
-  searchInput.addEventListener("input", () => {
-    searchQuery = searchInput.value.toLowerCase().trim();
-    updateTable();
-  });
+  layerSelect.onchange = () => { currentLayer = layerSelect.value; render(); };
+  searchInput.oninput = () => { searchQuery = searchInput.value.toLowerCase(); render(); };
 
   document.querySelectorAll("th[data-sort]").forEach(th => {
-    th.addEventListener("click", () => {
-      const key = th.dataset.sort;
-
-      if (sortKey === key) {
-        sortDir *= -1;
-      } else {
-        sortKey = key;
-        sortDir = 1;
-      }
-
-      document.querySelectorAll("th").forEach(h => {
-        h.classList.remove("sorted-asc", "sorted-desc");
-      });
-
+    th.onclick = () => {
+      sortKey === th.dataset.sort ? sortDir *= -1 : (sortKey = th.dataset.sort, sortDir = 1);
+      document.querySelectorAll("th").forEach(h => h.classList.remove("sorted-asc", "sorted-desc"));
       th.classList.add(sortDir === 1 ? "sorted-asc" : "sorted-desc");
-
-      updateTable();
-    });
+      render();
+    };
   });
 
-  /* ---------- FIRST RENDER ---------- */
-  updateTable();
+  render();
 </script>
 
 </body>
 </html>
+
 
 
 
