@@ -146,14 +146,17 @@
 
   const tbody = document.querySelector("tbody");
 
- function renderTable(list) {
+function renderTable(list) {
   tbody.innerHTML = "";
 
   list.forEach(ore => {
-    const depthText =
-      ore.maxDepth === Infinity
-        ? `${ore.minDepth}+`
-        : `${ore.minDepth}–${ore.maxDepth}`;
+    let depthText;
+
+    if (ore.maxDepth === Infinity) {
+      depthText = `${ore.minDepth}–9000+`;
+    } else {
+      depthText = `${ore.minDepth}–${ore.maxDepth}`;
+    }
 
     const row = document.createElement("tr");
     row.innerHTML = `
@@ -167,7 +170,6 @@
     tbody.appendChild(row);
   });
 }
-
 
   function oreInLayer(ore, layer) {
     return ore.minDepth < layer.max && ore.maxDepth > layer.min;
@@ -184,6 +186,7 @@
 
   </body>
 </html>
+
 
 
 
