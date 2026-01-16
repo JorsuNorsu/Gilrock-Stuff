@@ -8,7 +8,11 @@
 :root {
   --accent: #3b82f6;
   --filter-height: 72px;
+
+  --control-height: 42px;
+  --control-width: 220px;
 }
+
 
 /* ===== BASE ===== */
 body {
@@ -135,7 +139,7 @@ body {
   top: 0;
   z-index: 10;
   display: flex;
-  gap: 16px;
+  gap: 14px;
   align-items: flex-end;
   padding: 14px 20px;
   background: #111827;
@@ -156,10 +160,12 @@ body {
 
 .filter-group select,
 .filter-group input {
-  padding: 10px 12px;
+  height: var(--control-height);
+  width: var(--control-width);
+
+  padding: 0 12px;
   border-radius: 8px;
   font-size: 14px;
-  min-width: 200px;
 
   background: #020617;
   color: white;
@@ -169,6 +175,7 @@ body {
 
   box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
 }
+
 
 /* Placeholder text */
 .filter-group input::placeholder {
@@ -206,7 +213,9 @@ body {
 .filter-spacer { flex: 1; }
 
 .reset-btn {
-  padding: 10px 14px;
+  height: var(--control-height);
+  padding: 0 16px;
+
   font-size: 14px;
   border-radius: 8px;
 
@@ -219,6 +228,7 @@ body {
   box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
   transition: border-color .2s ease, box-shadow .2s ease;
 }
+
 
 .reset-btn:hover {
   border-color: rgba(255,255,255,0.3);
@@ -499,6 +509,7 @@ document.documentElement.style.setProperty("--filter-height", fb.offsetHeight+"p
 
 </body>
 </html>
+
 
 
 
