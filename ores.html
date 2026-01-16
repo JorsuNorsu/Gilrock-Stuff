@@ -6,7 +6,7 @@
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: "Inter", system-ui, Arial, sans-serif;
       background-color: #f4f6f8;
     }
 
@@ -24,53 +24,67 @@
     }
 
     .container {
-      max-width: 1000px;
+      max-width: 1100px;
       margin: 60px auto;
       background: white;
       padding: 30px;
-      border-radius: 12px;
+      border-radius: 14px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    h1 {
       text-align: center;
+      margin-bottom: 20px;
+    }
+
+    select {
+      padding: 8px 12px;
+      font-size: 15px;
+      margin-bottom: 15px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 20px;
-      font-size: 14px;
+      font-size: 15px;
     }
 
-    th {
+    thead th {
+      position: sticky;
+      top: 0;
+      z-index: 10;
       background-color: #1f2937;
       color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 13px;
+      border-bottom: 2px solid #000;
+    }
+
+    th, td {
       padding: 10px;
-      border-bottom: 2px solid #1f2937;
-    }
-
-    td {
-      padding: 8px;
       text-align: center;
-      border: none;
     }
 
-   tbody tr {
-  border-bottom: 1px solid #374151;
-}
+    tbody tr {
+      border-bottom: 2px solid #000;
+    }
 
     tbody tr:hover {
       background-color: rgba(0,0,0,0.04);
+    }
+
+    td:first-child {
+      font-weight: 700;
     }
 
     .rarity-bg {
       font-weight: 600;
     }
 
-    select {
-      padding: 6px 10px;
-      font-size: 14px;
-    }
-
     button {
+      display: block;
+      margin: 25px auto 0;
       padding: 12px 25px;
       font-size: 16px;
       border: none;
@@ -88,125 +102,122 @@
 
 <body>
 
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="ores.html">Ores</a>
-  </nav>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="ores.html">Ores</a>
+</nav>
 
-  <div class="container">
-    <h1>Ores</h1>
+<div class="container">
+  <h1>Ores</h1>
 
-    <label for="layerSelect"><strong>Layer:</strong></label>
-    <select id="layerSelect">
-      <option value="all">All Layers</option>
-    </select>
+  <label><strong>Layer:</strong></label>
+  <select id="layerSelect">
+    <option value="all">All Layers</option>
+  </select>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Rarity</th>
-          <th>Group</th>
-          <th>Value</th>
-          <th>Depth</th>
-          <th>Health</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Rarity</th>
+        <th>Group</th>
+        <th>Value</th>
+        <th>Depth</th>
+        <th>Health</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
 
-    <br>
+  <a href="index.html">
+    <button>Back to Home</button>
+  </a>
+</div>
 
-    <a href="index.html">
-      <button>Back to Home</button>
-    </a>
-  </div>
+<!-- LOAD DATA -->
+<script src="ores-data.js"></script>
 
-  <!-- LOAD DATA FIRST -->
-  <script src="ores-data.js"></script>
+<script>
+  // ----- LAYERS -----
+  const layers = [
+    { id: "stone", name: "Stone Layer", min: 0, max: 1000 },
+    { id: "basalt", name: "Basalt Layer", min: 1000, max: 2000 },
+    { id: "limestone", name: "Limestone Layer", min: 2000, max: 3000 },
+    { id: "gneiss", name: "Gneiss Layer", min: 3000, max: 4000 },
+    { id: "tuff", name: "Tuff Layer", min: 4000, max: 5000 },
+    { id: "marble", name: "Marble Layer", min: 5000, max: 6000 },
+    { id: "obsidian", name: "Obsidian Layer", min: 6000, max: 7000 },
+    { id: "peridotite", name: "Peridotite Layer", min: 7000, max: 8000 },
+    { id: "magma", name: "Magma & Lava Layer", min: 8000, max: 9000 },
+    { id: "void", name: "Void Layer", min: 9000, max: Infinity }
+  ];
 
-  <script>
-    // ----- LAYERS -----
-    const layers = [
-      { id: "stone", name: "Stone Layer", min: 0, max: 1000 },
-      { id: "basalt", name: "Basalt Layer", min: 1000, max: 2000 },
-      { id: "limestone", name: "Limestone Layer", min: 2000, max: 3000 },
-      { id: "gneiss", name: "Gneiss Layer", min: 3000, max: 4000 },
-      { id: "tuff", name: "Tuff Layer", min: 4000, max: 5000 },
-      { id: "marble", name: "Marble Layer", min: 5000, max: 6000 },
-      { id: "obsidian", name: "Obsidian Layer", min: 6000, max: 7000 },
-      { id: "peridotite", name: "Peridotite Layer", min: 7000, max: 8000 },
-      { id: "magma", name: "Magma & Lava Layer", min: 8000, max: 9000 },
-      { id: "void", name: "Void Layer", min: 9000, max: Infinity }
-    ];
+  // ----- RARITY COLORS -----
+  const rarityColors = {
+    Common: "#9ca3af33",
+    Uncommon: "#4ade8033",
+    Rare: "#38bdf833",
+    Epic: "#a855f733",
+    Legendary: "#facc1533",
+    Mythic: "#ec489933",
+    Godly: "#ef444433",
+    Surreal: "#2dd4bf33",
+    Divine: "#fde68a55",
+    Immortal: "#f9731633",
+    Eternal: "#8b5cf633"
+  };
 
-    // ----- RARITY COLORS -----
-    const rarityColors = {
-      "Common": "#9ca3af",
-      "Uncommon": "#4ade80",
-      "Rare": "#38bdf8",
-      "Epic": "#a855f7",
-      "Legendary": "#facc15",
-      "Mythic": "#ec4899",
-      "Godly": "#ef4444",
-      "Surreal": "#2dd4bf",
-      "Divine": "#fde68a",
-      "Immortal": "#f97316",
-      "Eternal": "#8b5cf6"
-    };
+  const tbody = document.querySelector("tbody");
+  const layerSelect = document.getElementById("layerSelect");
 
-    const tbody = document.querySelector("tbody");
-    const layerSelect = document.getElementById("layerSelect");
+  layers.forEach(layer => {
+    const option = document.createElement("option");
+    option.value = layer.id;
+    option.textContent = layer.name;
+    layerSelect.appendChild(option);
+  });
 
-    // populate dropdown
-    layers.forEach(layer => {
-      const option = document.createElement("option");
-      option.value = layer.id;
-      option.textContent = layer.name;
-      layerSelect.appendChild(option);
+  function renderTable(list) {
+    tbody.innerHTML = "";
+
+    list.forEach(ore => {
+      const bg = rarityColors[ore.group] || "#ffffff";
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td class="rarity-bg" style="background:${bg}">${ore.name}</td>
+        <td class="rarity-bg" style="background:${bg}">${ore.rarity}</td>
+        <td class="rarity-bg" style="background:${bg}">${ore.group}</td>
+        <td>${ore.value}</td>
+        <td>${ore.maxDepth === Infinity ? `${ore.minDepth}–9000+` : `${ore.minDepth}–${ore.maxDepth}`}</td>
+        <td>${ore.health} HP</td>
+      `;
+
+      tbody.appendChild(row);
     });
+  }
 
-    function renderTable(list) {
-      tbody.innerHTML = "";
+  function oreInLayer(ore, layer) {
+    return ore.minDepth < layer.max && ore.maxDepth > layer.min;
+  }
 
-      list.forEach(ore => {
-        const row = document.createElement("tr");
-        const color = rarityColors[ore.group] || "#ffffff";
-        const bg = color + "33";
-
-        row.innerHTML = `
-          <td class="rarity-bg" style="background:${bg}">${ore.name}</td>
-          <td class="rarity-bg" style="background:${bg}">${ore.rarity}</td>
-          <td class="rarity-bg" style="background:${bg}">${ore.group}</td>
-          <td>${ore.value}</td>
-          <td>${ore.maxDepth === Infinity ? `${ore.minDepth}–9000+` : `${ore.minDepth}–${ore.maxDepth}`}</td>
-          <td>${ore.health} HP</td>
-        `;
-
-        tbody.appendChild(row);
-      });
+  layerSelect.addEventListener("change", () => {
+    const value = layerSelect.value;
+    if (value === "all") {
+      renderTable(ores);
+    } else {
+      const layer = layers.find(l => l.id === value);
+      renderTable(ores.filter(o => oreInLayer(o, layer)));
     }
+  });
 
-    function oreInLayer(ore, layer) {
-      return ore.minDepth < layer.max && ore.maxDepth > layer.min;
-    }
-
-    layerSelect.addEventListener("change", () => {
-      const value = layerSelect.value;
-      if (value === "all") {
-        renderTable(ores);
-      } else {
-        const layer = layers.find(l => l.id === value);
-        renderTable(ores.filter(o => oreInLayer(o, layer)));
-      }
-    });
-
-    // initial render
-    renderTable(ores);
-  </script>
+  renderTable(ores);
+</script>
 
 </body>
 </html>
+
+
 
 
 
