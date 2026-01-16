@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Ores</title>
 
   <style>
@@ -37,10 +38,23 @@
       margin-bottom: 20px;
     }
 
-    select {
+    /* CONTROLS */
+    .controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    select, input {
       padding: 8px 12px;
       font-size: 15px;
-      margin-bottom: 15px;
+    }
+
+    #resultCount {
+      margin: 8px 0 12px;
+      font-size: 14px;
+      color: #555;
     }
 
     table {
@@ -82,6 +96,13 @@
       font-weight: 600;
     }
 
+    .no-results {
+      text-align: center;
+      padding: 25px;
+      font-style: italic;
+      color: #666;
+    }
+
     button {
       display: block;
       margin: 25px auto 0;
@@ -110,10 +131,20 @@
 <div class="container">
   <h1>Ores</h1>
 
-  <label><strong>Layer:</strong></label>
-  <select id="layerSelect">
-    <option value="all">All Layers</option>
-  </select>
+  <div class="controls">
+    <select id="layerSelect">
+      <option value="all">All Layers</option>
+    </select>
+
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search ore name..."
+      autocomplete="off"
+    >
+  </div>
+
+  <div id="resultCount"></div>
 
   <table>
     <thead>
@@ -138,7 +169,7 @@
 <script src="ores-data.js"></script>
 
 <script>
-  // ----- LAYERS -----
+  /* ---------- LAYERS ---------- */
   const layers = [
     { id: "stone", name: "Stone Layer", min: 0, max: 1000 },
     { id: "basalt", name: "Basalt Layer", min: 1000, max: 2000 },
@@ -152,7 +183,7 @@
     { id: "void", name: "Void Layer", min: 9000, max: Infinity }
   ];
 
-  // ----- RARITY COLORS -----
+  /* ---------- RARITY COLORS ---------- */
   const rarityColors = {
     Common: "#9ca3af33",
     Uncommon: "#4ade8033",
@@ -167,9 +198,16 @@
     Eternal: "#8b5cf633"
   };
 
+  /* ---------- STATE ---------- */
   const tbody = document.querySelector("tbody");
   const layerSelect = document.getElementById("layerSelect");
+  const searchInput = document.getElementById("searchInput");
+  const resultCount = document.getElementById("resultCount");
 
+  let currentLayer = "all";
+  let searchQuery = "";
+
+  /* ---------- INIT ---------- */
   layers.forEach(layer => {
     const option = document.createElement("option");
     option.value = layer.id;
@@ -177,8 +215,42 @@
     layerSelect.appendChild(option);
   });
 
+  /* ---------- HELPERS ---------- */
+  function oreInLayer(ore, layer) {
+    return ore.minDepth < layer.max && ore.maxDepth > layer.min;
+  }
+
+  function getFilteredOres() {
+    let filtered = ores;
+
+    if (currentLayer !== "all") {
+      const layer = layers.find(l => l.id === currentLayer);
+      filtered = filtered.filter(o => oreInLayer(o, layer));
+    }
+
+    if (searchQuery) {
+      filtered = filtered.filter(o =>
+        o.name.toLowerCase().includes(searchQuery)
+      );
+    }
+
+    return filtered;
+  }
+
   function renderTable(list) {
     tbody.innerHTML = "";
+
+    if (list.length === 0) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="6" class="no-results">
+            No ores found
+          </td>
+        </tr>
+      `;
+      resultCount.textContent = "0 ores";
+      return;
+    }
 
     list.forEach(ore => {
       const bg = rarityColors[ore.group] || "#ffffff";
@@ -195,28 +267,31 @@
 
       tbody.appendChild(row);
     });
+
+    resultCount.textContent = `${list.length} ores`;
   }
 
-  function oreInLayer(ore, layer) {
-    return ore.minDepth < layer.max && ore.maxDepth > layer.min;
+  function updateTable() {
+    renderTable(getFilteredOres());
   }
 
+  /* ---------- EVENTS ---------- */
   layerSelect.addEventListener("change", () => {
-    const value = layerSelect.value;
-    if (value === "all") {
-      renderTable(ores);
-    } else {
-      const layer = layers.find(l => l.id === value);
-      renderTable(ores.filter(o => oreInLayer(o, layer)));
-    }
+    currentLayer = layerSelect.value;
+    updateTable();
   });
 
-  renderTable(ores);
+  searchInput.addEventListener("input", () => {
+    searchQuery = searchInput.value.toLowerCase().trim();
+    updateTable();
+  });
+
+  /* ---------- FIRST RENDER ---------- */
+  updateTable();
 </script>
 
 </body>
 </html>
-
 
 
 
