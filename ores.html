@@ -78,6 +78,13 @@
 
     <div class="container">
       <h1>Ores</h1>
+      
+<label for="layerSelect"><strong>Layer:</strong></label>
+<select id="layerSelect">
+  <option value="all">All Layers</option>
+</select>
+
+<br><br>
 
       <table>
         <thead>
@@ -105,13 +112,27 @@
     <!-- ✅ JAVASCRIPT GOES HERE -->
 <script>
   // ----- LAYERS -----
-  const layers = [
-    { id: "stone", min: 0, max: 1000 },
-    { id: "basalt", min: 1000, max: 2000 },
-    { id: "limestone", min: 2000, max: 3000 },
-    { id: "gneiss", min: 3000, max: 4000 },
-    { id: "void", min: 9000, max: Infinity }
-  ];
+const layers = [
+  { id: "stone", name: "Stone Layer", min: 0, max: 1000 },
+  { id: "basalt", name: "Basalt Layer", min: 1000, max: 2000 },
+  { id: "limestone", name: "Limestone Layer", min: 2000, max: 3000 },
+  { id: "gneiss", name: "Gneiss Layer", min: 3000, max: 4000 },
+  { id: "tuff", name: "Tuff Layer", min: 4000, max: 5000 },
+  { id: "marble", name: "Marble Layer", min: 5000, max: 6000 },
+  { id: "obsidian", name: "Obsidian Layer", min: 6000, max: 7000 },
+  { id: "peridotite", name: "Peridotite Layer", min: 7000, max: 8000 },
+  { id: "magma", name: "Magma & Lava Layer", min: 8000, max: 9000 },
+  { id: "void", name: "Void Layer", min: 9000, max: Infinity }
+];
+rSelect = document.getElementById("layerSelect");
+
+// populate dropdown
+layers.forEach(layer => {
+  const option = document.createElement("option");
+  option.value = layer.id;
+  option.textContent = layer.name;
+  layerSelect.appendChild(option);
+});
 
   // ----- ORES (NUMERIC DEPTH ONLY) -----
   const ores = [
@@ -1629,6 +1650,15 @@ function renderTable(list) {
     const layer = layers.find(l => l.id === id);
     renderTable(ores.filter(o => oreInLayer(o, layer)));
   }
+layerSelect.addEventListener("change", () => {
+  const value = layerSelect.value;
+
+  if (value === "all") {
+    renderTable(ores);
+  } else {
+    showLayer(value);
+  }
+});
 
 renderTable(ores);
   
@@ -1637,6 +1667,7 @@ renderTable(ores);
 
   </body>
 </html>
+
 
 
 
