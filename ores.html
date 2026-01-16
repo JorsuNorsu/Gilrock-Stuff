@@ -114,13 +114,14 @@ body {
   box-shadow: 0 10px 25px rgba(0,0,0,.25);
 }
 
-h1 {
+.page-title {
   text-align: center;
-  padding: 10px 0 20px;
-  margin: 0;
   color: white;
   font-weight: 600;
+  font-size: 28px;
+  margin: 0 0 20px;
 }
+
 
 
 /* ===== FILTER BAR ===== */
@@ -261,10 +262,11 @@ td:first-child {
   </aside>
 
   <main class="content">
-    <div class="container">
-      <h1>Ores</h1>
+  <h1 class="page-title">Ores</h1>
 
-      <div class="filter-bar" id="filterBar">
+<div class="container">
+  <div class="filter-bar" id="filterBar">
+
         <div class="filter-group">
           <label>Layer</label>
           <select id="layerSelect">
@@ -421,6 +423,7 @@ document.documentElement.style.setProperty("--filter-height", fb.offsetHeight+"p
 
 </body>
 </html>
+
 
 
 
