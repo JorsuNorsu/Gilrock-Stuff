@@ -5,6 +5,53 @@
 <title>Ores</title>
 
 <style>
+  .app {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  background: linear-gradient(180deg, #0f172a, #020617);
+  color: white;
+  padding: 20px 15px;
+}
+
+.logo {
+  font-size: 32px;
+  font-weight: 900;
+  margin-bottom: 30px;
+  color: #3b82f6;
+}
+
+.side-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.side-nav a {
+  color: #cbd5f5;
+  text-decoration: none;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.side-nav a:hover {
+  background: rgba(255,255,255,0.06);
+}
+
+.side-nav a.active {
+  background: rgba(59,130,246,0.25);
+  color: white;
+}
+
+.content {
+  flex: 1;
+  padding: 30px;
+}
+
 :root { --filter-height: 72px; }
 
 body {
@@ -153,11 +200,20 @@ td:first-child {
 </head>
 
 <body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="logo">JK</div>
 
-<nav>
-  <a href="index.html">Home</a>
-  <a href="ores.html">Ores</a>
-</nav>
+    <nav class="side-nav">
+      <a href="index.html">Home</a>
+      <a href="ores.html" class="active">Ores</a>
+    </nav>
+  </aside>
+
+  <main class="content">
+
+
+
 
 <div class="container">
   <h1>Ores</h1>
@@ -315,8 +371,11 @@ render();
 const fb=document.getElementById("filterBar");
 document.documentElement.style.setProperty("--filter-height", fb.offsetHeight+"px");
 </script>
-
+    
+  </main>
+</div>
 </body>
 </html>
+
 
 
