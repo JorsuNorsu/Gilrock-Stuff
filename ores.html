@@ -67,6 +67,16 @@
       button:hover {
         background-color: #2563eb;
       }
+      .rarity-badge {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #000;
+}
+
     </style>
   </head>
 
@@ -1642,9 +1652,14 @@ function renderTable(list) {
     const color = rarityColors[ore.group] || "#ffffff";
 
     row.innerHTML = `
-      <td style="color:${color}; font-weight:600;">${ore.name}</td>
+      <td>
+        <div>${ore.name}</div>
+        <div class="rarity-badge" style="background:${color}">
+          ${ore.group}
+        </div>
+      </td>
       <td>${ore.rarity}</td>
-      <td style="color:${color}; font-weight:600;">${ore.group}</td>
+      <td>${ore.group}</td>
       <td>${ore.value}</td>
       <td>${
         ore.maxDepth === Infinity
@@ -1684,6 +1699,7 @@ renderTable(ores);
 
   </body>
 </html>
+
 
 
 
