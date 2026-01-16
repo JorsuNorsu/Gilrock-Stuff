@@ -1,180 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Ores</title>
+<meta charset="UTF-8">
+<title>Ores</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: "Inter", system-ui, Arial, sans-serif;
-      background-color: #f4f6f8;
-    }
+<style>
+:root {
+  --filter-height: 72px;
+}
 
-    nav {
-      background-color: #1f2937;
-      padding: 15px;
-      text-align: center;
-    }
+body {
+  margin: 0;
+  font-family: Inter, system-ui, Arial, sans-serif;
+  background: #f4f6f8;
+}
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 15px;
-      font-weight: bold;
-    }
+nav {
+  background: #1f2937;
+  padding: 15px;
+  text-align: center;
+}
 
-    .container {
-      max-width: 1200px;
-      margin: 50px auto;
-      background: white;
-      border-radius: 14px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    }
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: bold;
+}
 
-    h1 {
-      text-align: center;
-      padding: 20px 0 10px;
-    }
+.container {
+  max-width: 1200px;
+  margin: 50px auto;
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.1);
+}
 
-    /* FILTER BAR */
-    .filter-bar {
-      display: flex;
-      gap: 16px;
-      align-items: flex-end;
-      padding: 15px 20px;
-      background: #111827;
-      color: white;
-      flex-wrap: wrap;
-    }
+h1 {
+  text-align: center;
+  padding: 20px 0 10px;
+}
 
-    .filter-group {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
+/* FILTER BAR (STICKY) */
+.filter-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  padding: 14px 20px;
+  background: #111827;
+  color: white;
+}
 
-    .filter-group label {
-      font-size: 12px;
-      opacity: 0.85;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
 
-    .filter-group select,
-    .filter-group input {
-      padding: 8px 10px;
-      font-size: 14px;
-      border-radius: 6px;
-      border: none;
-      min-width: 200px;
-    }
+.filter-group label {
+  font-size: 12px;
+  opacity: .85;
+  text-transform: uppercase;
+}
 
-    .reset-btn {
-      padding: 9px 14px;
-      font-size: 14px;
-      border-radius: 6px;
-      border: 1px solid #9ca3af;
-      background: transparent;
-      color: white;
-      cursor: pointer;
-    }
+.filter-group select,
+.filter-group input {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: none;
+  font-size: 14px;
+  min-width: 200px;
+}
 
-    .reset-btn:hover {
-      background: rgba(255,255,255,0.1);
-    }
+.filter-spacer {
+  flex: 1;
+}
 
-    .filter-spacer {
-      flex: 1;
-    }
+.reset-btn {
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #9ca3af;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+}
 
-    #resultCount {
-      font-size: 14px;
-      opacity: 0.85;
-      align-self: center;
-    }
+.reset-btn:hover {
+  background: rgba(255,255,255,.1);
+}
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 15px;
-    }
+#resultCount {
+  font-size: 14px;
+  opacity: .85;
+}
 
-    thead th {
-      position: sticky;
-      top: 64px; /* height of filter bar */
-      z-index: 5;
-      background-color: #1f2937;
-      color: white;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      font-size: 13px;
-      border-bottom: 2px solid #000;
-      padding: 10px;
-      cursor: pointer;
-      user-select: none;
-    }
+/* TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
 
-    thead th[data-sort]::after {
-      content: " ⇅";
-      font-size: 11px;
-      opacity: 0.4;
-    }
+thead th {
+  position: sticky;
+  top: var(--filter-height);
+  z-index: 5;
+  background: #1f2937;
+  color: white;
+  font-size: 13px;
+  text-transform: uppercase;
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 2px solid #000;
+}
 
-    thead th.sorted-asc::after {
-      content: " ▲";
-      opacity: 1;
-    }
+thead th[data-sort]::after {
+  content: " ⇅";
+  font-size: 11px;
+  opacity: .4;
+}
 
-    thead th.sorted-desc::after {
-      content: " ▼";
-      opacity: 1;
-    }
+thead th.sorted-asc::after { content: " ▲"; opacity: 1; }
+thead th.sorted-desc::after { content: " ▼"; opacity: 1; }
 
-    tbody tr {
-      border-bottom: 2px solid #000;
-    }
+tbody tr {
+  border-bottom: 2px solid #000;
+}
 
-    tbody tr:hover {
-      background-color: rgba(0,0,0,0.04);
-    }
+tbody tr:hover {
+  background: rgba(0,0,0,.04);
+}
 
-    td {
-      padding: 10px;
-      text-align: center;
-    }
+td {
+  padding: 10px;
+  text-align: center;
+}
 
-    td:first-child {
-      font-weight: 700;
-    }
+td:first-child {
+  font-weight: 700;
+}
 
-    .rarity-bg {
-      font-weight: 600;
-    }
-
-    .no-results {
-      text-align: center;
-      padding: 25px;
-      font-style: italic;
-      color: #666;
-    }
-
-    button {
-      display: block;
-      margin: 25px auto;
-      padding: 12px 25px;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      background-color: #3b82f6;
-      color: white;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #2563eb;
-    }
-  </style>
+.no-results {
+  text-align: center;
+  padding: 25px;
+  color: #666;
+  font-style: italic;
+}
+</style>
 </head>
 
 <body>
@@ -187,7 +162,7 @@
 <div class="container">
   <h1>Ores</h1>
 
-  <div class="filter-bar">
+  <div class="filter-bar" id="filterBar">
     <div class="filter-group">
       <label>Layer</label>
       <select id="layerSelect">
@@ -197,13 +172,12 @@
 
     <div class="filter-group">
       <label>Search</label>
-      <input id="searchInput" type="text" placeholder="Ore name...">
+      <input id="searchInput" placeholder="Ore name...">
     </div>
-
-    <button class="reset-btn" id="resetBtn">Reset Filters</button>
 
     <div class="filter-spacer"></div>
 
+    <button class="reset-btn" id="resetBtn">Reset Filters</button>
     <div id="resultCount"></div>
   </div>
 
@@ -220,171 +194,113 @@
     </thead>
     <tbody></tbody>
   </table>
-
-  <a href="index.html"><button>Back to Home</button></a>
 </div>
 
 <script src="ores-data.js"></script>
 
 <script>
-  const layers = [
-    { id: "stone", min: 0, max: 1000 },
-    { id: "basalt", min: 1000, max: 2000 },
-    { id: "limestone", min: 2000, max: 3000 },
-    { id: "gneiss", min: 3000, max: 4000 },
-    { id: "tuff", min: 4000, max: 5000 },
-    { id: "marble", min: 5000, max: 6000 },
-    { id: "obsidian", min: 6000, max: 7000 },
-    { id: "peridotite", min: 7000, max: 8000 },
-    { id: "magma", min: 8000, max: 9000 },
-    { id: "void", min: 9000, max: Infinity }
-  ];
+const layers = [
+  { id:"stone",min:0,max:1000 },
+  { id:"basalt",min:1000,max:2000 },
+  { id:"limestone",min:2000,max:3000 },
+  { id:"gneiss",min:3000,max:4000 },
+  { id:"tuff",min:4000,max:5000 },
+  { id:"marble",min:5000,max:6000 },
+  { id:"obsidian",min:6000,max:7000 },
+  { id:"peridotite",min:7000,max:8000 },
+  { id:"magma",min:8000,max:9000 },
+  { id:"void",min:9000,max:Infinity }
+];
 
-  const rarityColors = {
-    Common: "#9ca3af33",
-    Uncommon: "#4ade8033",
-    Rare: "#38bdf833",
-    Epic: "#a855f733",
-    Legendary: "#facc1533",
-    Mythic: "#ec489933",
-    Godly: "#ef444433",
-    Surreal: "#2dd4bf33",
-    Divine: "#fde68a55",
-    Immortal: "#f9731633",
-    Eternal: "#8b5cf633"
-  };
+const tbody = document.querySelector("tbody");
+const layerSelect = document.getElementById("layerSelect");
+const searchInput = document.getElementById("searchInput");
+const resultCount = document.getElementById("resultCount");
+const resetBtn = document.getElementById("resetBtn");
 
-  const tbody = document.querySelector("tbody");
-  const layerSelect = document.getElementById("layerSelect");
-  const searchInput = document.getElementById("searchInput");
-  const resultCount = document.getElementById("resultCount");
-  const resetBtn = document.getElementById("resetBtn");
+let currentLayer="all", searchQuery="", sortKey=null, sortDir=1;
 
-  let currentLayer = "all";
-  let searchQuery = "";
-  let sortKey = null;
-  let sortDir = 1;
+layers.forEach(l=>{
+  const o=document.createElement("option");
+  o.value=l.id;
+  o.textContent=l.id.charAt(0).toUpperCase()+l.id.slice(1);
+  layerSelect.appendChild(o);
+});
 
-  layers.forEach(l => {
-    const o = document.createElement("option");
-    o.value = l.id;
-    o.textContent = l.id.charAt(0).toUpperCase() + l.id.slice(1);
-    layerSelect.appendChild(o);
-  });
+const parseRarity=r=>+r.split("/")[1].replace(/,/g,"");
+const inLayer=(o,l)=>o.minDepth<l.max&&o.maxDepth>l.min;
 
-  function parseRarity(r) {
-    return parseInt(r.split("/")[1].replace(/,/g, ""));
+function getList(){
+  let list=[...ores];
+  if(currentLayer!=="all"){
+    const l=layers.find(x=>x.id===currentLayer);
+    list=list.filter(o=>inLayer(o,l));
   }
-
-  function oreInLayer(o, l) {
-    return o.minDepth < l.max && o.maxDepth > l.min;
+  if(searchQuery){
+    list=list.filter(o=>o.name.toLowerCase().includes(searchQuery));
   }
-
-  function getFiltered() {
-    let list = [...ores];
-
-    if (currentLayer !== "all") {
-      const layer = layers.find(l => l.id === currentLayer);
-      list = list.filter(o => oreInLayer(o, layer));
-    }
-
-    if (searchQuery) {
-      list = list.filter(o => o.name.toLowerCase().includes(searchQuery));
-    }
-
-    if (sortKey) {
-      list.sort((a, b) => {
-        let A, B;
-        switch (sortKey) {
-          case "rarity":
-            A = parseRarity(a.rarity);
-            B = parseRarity(b.rarity);
-            break;
-          case "value":
-            A = parseFloat(a.value.replace(/[^0-9.]/g, ""));
-            B = parseFloat(b.value.replace(/[^0-9.]/g, ""));
-            break;
-          case "depth":
-            A = a.minDepth;
-            B = b.minDepth;
-            break;
-          default:
-            A = a[sortKey];
-            B = b[sortKey];
-        }
-        return typeof A === "string"
-          ? A.localeCompare(B) * sortDir
-          : (A - B) * sortDir;
-      });
-    }
-
-    return list;
-  }
-
-  function render() {
-    const list = getFiltered();
-    tbody.innerHTML = "";
-
-    if (!list.length) {
-      tbody.innerHTML = `<tr><td colspan="6" class="no-results">No ores found</td></tr>`;
-    }
-
-    list.forEach(o => {
-      const bg = rarityColors[o.group] || "#fff";
-      tbody.innerHTML += `
-        <tr>
-          <td class="rarity-bg" style="background:${bg}">${o.name}</td>
-          <td class="rarity-bg" style="background:${bg}">${o.rarity}</td>
-          <td>${o.group}</td>
-          <td>${o.value}</td>
-          <td>${o.maxDepth === Infinity ? `${o.minDepth}–9000+` : `${o.minDepth}–${o.maxDepth}`}</td>
-          <td>${o.health} HP</td>
-        </tr>
-      `;
+  if(sortKey){
+    list.sort((a,b)=>{
+      let A,B;
+      switch(sortKey){
+        case"rarity":A=parseRarity(a.rarity);B=parseRarity(b.rarity);break;
+        case"value":A=+a.value.replace(/[^0-9.]/g,"");B=+b.value.replace(/[^0-9.]/g,"");break;
+        case"depth":A=a.minDepth;B=b.minDepth;break;
+        default:A=a[sortKey];B=b[sortKey];
+      }
+      return typeof A==="string"?A.localeCompare(B)*sortDir:(A-B)*sortDir;
     });
-
-    resultCount.textContent = `${list.length} ores`;
   }
+  return list;
+}
 
-  layerSelect.onchange = () => { currentLayer = layerSelect.value; render(); };
-  searchInput.oninput = () => { searchQuery = searchInput.value.toLowerCase(); render(); };
-
-  document.querySelectorAll("th[data-sort]").forEach(th => {
-    th.onclick = () => {
-      sortKey === th.dataset.sort
-        ? sortDir *= -1
-        : (sortKey = th.dataset.sort, sortDir = 1);
-
-      document.querySelectorAll("th").forEach(h =>
-        h.classList.remove("sorted-asc", "sorted-desc")
-      );
-
-      th.classList.add(sortDir === 1 ? "sorted-asc" : "sorted-desc");
-      render();
-    };
+function render(){
+  const list=getList();
+  tbody.innerHTML="";
+  if(!list.length){
+    tbody.innerHTML=`<tr><td colspan="6" class="no-results">No ores found</td></tr>`;
+  }
+  list.forEach(o=>{
+    tbody.innerHTML+=`
+    <tr>
+      <td>${o.name}</td>
+      <td>${o.rarity}</td>
+      <td>${o.group}</td>
+      <td>${o.value}</td>
+      <td>${o.maxDepth===Infinity?`${o.minDepth}–9000+`:`${o.minDepth}–${o.maxDepth}`}</td>
+      <td>${o.health} HP</td>
+    </tr>`;
   });
+  resultCount.textContent=`${list.length} ores`;
+}
 
-  resetBtn.onclick = () => {
-    currentLayer = "all";
-    searchQuery = "";
-    sortKey = null;
-    sortDir = 1;
+layerSelect.onchange=()=>{currentLayer=layerSelect.value;render();}
+searchInput.oninput=()=>{searchQuery=searchInput.value.toLowerCase();render();}
 
-    layerSelect.value = "all";
-    searchInput.value = "";
-
-    document.querySelectorAll("th").forEach(h =>
-      h.classList.remove("sorted-asc", "sorted-desc")
-    );
-
+document.querySelectorAll("th[data-sort]").forEach(th=>{
+  th.onclick=()=>{
+    sortKey===th.dataset.sort?sortDir*=-1:(sortKey=th.dataset.sort,sortDir=1);
+    document.querySelectorAll("th").forEach(h=>h.classList.remove("sorted-asc","sorted-desc"));
+    th.classList.add(sortDir===1?"sorted-asc":"sorted-desc");
     render();
   };
+});
 
+resetBtn.onclick=()=>{
+  currentLayer="all"; searchQuery=""; sortKey=null; sortDir=1;
+  layerSelect.value="all"; searchInput.value="";
+  document.querySelectorAll("th").forEach(h=>h.classList.remove("sorted-asc","sorted-desc"));
   render();
+};
+
+render();
+
+/* sync sticky offset */
+const fb=document.getElementById("filterBar");
+document.documentElement.style.setProperty("--filter-height", fb.offsetHeight+"px");
 </script>
 
 </body>
 </html>
-
 
 
