@@ -115,33 +115,618 @@
 
   // ----- ORES (NUMERIC DEPTH ONLY) -----
   const ores = [
-    {
-      name: "Coal",
-      rarity: "1/100",
-      group: "Common",
-      value: 0.022,
-      minDepth: 0,
-      maxDepth: Infinity,
-      health: 12
-    },
-    {
-      name: "Limestone Ore",
-      rarity: "1/1",
-      group: "Common",
-      value: 0.003,
-      minDepth: 2000,
-      maxDepth: 3000,
-      health: 20
-    },
-    {
-      name: "Gneiss Ore",
-      rarity: "1/1",
-      group: "Common",
-      value: 0.003,
-      minDepth: 3000,
-      maxDepth: 4000,
-      health: 24
-    }
+   {
+  name: "Stone",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 0,
+  maxDepth: 1000,
+  health: 10
+},
+{
+  name: "Basalt",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 1000,
+  maxDepth: 2000,
+  health: 18
+},
+{
+  name: "Limestone",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 2000,
+  maxDepth: 3000,
+  health: 20
+},
+{
+  name: "Gneiss",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 3000,
+  maxDepth: 4000,
+  health: 24
+},
+{
+  name: "Tuff",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 4000,
+  maxDepth: 5000,
+  health: 30
+},
+{
+  name: "Marble",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 5000,
+  maxDepth: 6000,
+  health: 34
+},
+{
+  name: "Obsidian",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 6000,
+  maxDepth: 7000,
+  health: 52
+},
+{
+  name: "Peridotite",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 7000,
+  maxDepth: 8000,
+  health: 65
+},
+{
+  name: "Magma",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 8000,
+  maxDepth: 9000,
+  health: 84
+},
+{
+  name: "Lava",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 8000,
+  maxDepth: 9000,
+  health: 78
+},
+{
+  name: "Voidstone",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 9000,
+  maxDepth: Infinity,
+  health: 120
+},
+{
+  name: "Dirt",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 0,
+  maxDepth: 3000,
+  health: 5
+},
+{
+  name: "Diorite",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 0,
+  maxDepth: 2000,
+  health: 8
+},
+{
+  name: "Granite",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 0,
+  maxDepth: 2000,
+  health: 8
+},
+{
+  name: "Andesite",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 0,
+  maxDepth: 2000,
+  health: 8
+},
+{
+  name: "Chalk",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 2000,
+  maxDepth: 3000,
+  health: 4
+},
+{
+  name: "Calcite",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 2000,
+  maxDepth: 3000,
+  health: 8
+},
+{
+  name: "Dolostone",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 2000,
+  maxDepth: 3000,
+  health: 8
+},
+{
+  name: "Quartzite",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 3000,
+  maxDepth: 4000,
+  health: 26
+},
+{
+  name: "Schist",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 3000,
+  maxDepth: 4000,
+  health: 22
+},
+{
+  name: "Migmatite",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 3000,
+  maxDepth: 4000,
+  health: 22
+},
+{
+  name: "Bentonite",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 4000,
+  maxDepth: 5000,
+  health: 8
+},
+{
+  name: "Illite",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 4000,
+  maxDepth: 5000,
+  health: 5
+},
+{
+  name: "Kaolinite",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 4000,
+  maxDepth: 5000,
+  health: 8
+},
+{
+  name: "Talc",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 5000,
+  maxDepth: 6000,
+  health: 4
+},
+{
+  name: "Albite",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 5000,
+  maxDepth: 6000,
+  health: 8
+},
+{
+  name: "Gypsum",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 5000,
+  maxDepth: 6000,
+  health: 6
+},
+{
+  name: "Scoria",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 6000,
+  maxDepth: 7000,
+  health: 36
+},
+{
+  name: "Pumice",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 6000,
+  maxDepth: 7000,
+  health: 32
+},
+{
+  name: "Tachylite",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 6000,
+  maxDepth: 7000,
+  health: 45
+},
+{
+  name: "Dunite",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 7000,
+  maxDepth: 8000,
+  health: 60
+},
+{
+  name: "Harzburgite",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 7000,
+  maxDepth: 8000,
+  health: 72
+},
+{
+  name: "Lherzolite",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 7000,
+  maxDepth: 8000,
+  health: 70
+},
+{
+  name: "Rhyolite",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 8000,
+  maxDepth: 9000,
+  health: 72
+},
+{
+  name: "Felsite",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 8000,
+  maxDepth: 9000,
+  health: 66
+},
+{
+  name: "Komatiite",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 8000,
+  maxDepth: 9000,
+  health: 78
+},
+{
+  name: "Abyssalite",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 9000,
+  maxDepth: Infinity,
+  health: 112
+},
+{
+  name: "Cosmic Slag",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 9000,
+  maxDepth: Infinity,
+  health: 108
+},
+{
+  name: "Nullite",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 9000,
+  maxDepth: Infinity,
+  health: 118
+},
+{
+  name: "Shardite",
+  rarity: "1/1",
+  group: "Common",
+  value: "$0.003",
+  minDepth: 3000,
+  maxDepth: 4000,
+  health: 25
+},
+{
+  name: "Coal",
+  rarity: "1/100",
+  group: "Common",
+  value: "$0.022",
+  minDepth: 0,
+  maxDepth: Infinity,
+  health: 12
+},
+{
+  name: "Silicon",
+  rarity: "1/150",
+  group: "Common",
+  value: "$0.033",
+  minDepth: 4000,
+  maxDepth: 7000,
+  health: 16
+},
+{
+  name: "Voidrinite",
+  rarity: "1/175",
+  group: "Common",
+  value: "$0.039",
+  minDepth: 9000,
+  maxDepth: Infinity,
+  health: 92
+},
+{
+  name: "Iron",
+  rarity: "1/200",
+  group: "Common",
+  value: "$0.044",
+  minDepth: 0,
+  maxDepth: 6000,
+  health: 20
+},
+{
+  name: "Copper",
+  rarity: "1/200",
+  group: "Common",
+  value: "$0.044",
+  minDepth: 0,
+  maxDepth: 2000,
+  health: 18
+},
+{
+  name: "Tin",
+  rarity: "1/250",
+  group: "Common",
+  value: "$0.056",
+  minDepth: 0,
+  maxDepth: 1000,
+  health: 18
+},
+{
+  name: "Zinc",
+  rarity: "1/250",
+  group: "Common",
+  value: "$0.056",
+  minDepth: 1000,
+  maxDepth: 2000,
+  health: 18
+},
+{
+  name: "Hexite",
+  rarity: "1/275",
+  group: "Common",
+  value: "$0.061",
+  minDepth: 2000,
+  maxDepth: 3000,
+  health: 26
+},
+{
+  name: "Spikilite",
+  rarity: "1/300",
+  group: "Common",
+  value: "$0.067",
+  minDepth: 9000,
+  maxDepth: Infinity,
+  health: 95
+},
+{
+  name: "Iridium",
+  rarity: "1/300",
+  group: "Common",
+  value: "$0.067",
+  minDepth: 5000,
+  maxDepth: 6000,
+  health: 24
+},
+{
+  name: "Nickel",
+  rarity: "1/300",
+  group: "Common",
+  value: "$0.067",
+  minDepth: 2000,
+  maxDepth: 4000,
+  health: 24
+},
+{
+  name: "Aluminium",
+  rarity: "1/300",
+  group: "Common",
+  value: "$0.067",
+  minDepth: 0,
+  maxDepth: 1000,
+  health: 16
+},
+{
+  name: "Mercury",
+  rarity: "1/300",
+  group: "Common",
+  value: "$0.067",
+  minDepth: 7000,
+  maxDepth: 9000,
+  health: 24
+},
+{
+  name: "Darkmatter",
+  rarity: "1/350",
+  group: "Common",
+  value: "$0.078",
+  minDepth: 9000,
+  maxDepth: Infinity,
+  health: 98
+},
+{
+  name: "Sodium",
+  rarity: "1/400",
+  group: "Common",
+  value: "$0.089",
+  minDepth: 2000,
+  maxDepth: 5000,
+  health: 8
+},
+{
+  name: "Potassium",
+  rarity: "1/400",
+  group: "Common",
+  value: "$0.089",
+  minDepth: 1000,
+  maxDepth: 2000,
+  health: 8
+},
+{
+  name: "Sulfur",
+  rarity: "1/400",
+  group: "Common",
+  value: "$0.089",
+  minDepth: 8000,
+  maxDepth: 9000,
+  health: 12
+},
+{
+  name: "Manganese",
+  rarity: "1/400",
+  group: "Common",
+  value: "$0.089",
+  minDepth: 6000,
+  maxDepth: 7000,
+  health: 24
+},
+{
+  name: "Cadmium",
+  rarity: "1/425",
+  group: "Common",
+  value: "$0.094",
+  minDepth: 7000,
+  maxDepth: 9000,
+  health: 18
+},
+{
+  name: "Gallium",
+  rarity: "1/500",
+  group: "Common",
+  value: "$0.111",
+  minDepth: 3000,
+  maxDepth: 4000,
+  health: 16
+},
+{
+  name: "Lacrimium",
+  rarity: "1/500",
+  group: "Common",
+  value: "$0.111",
+  minDepth: 9000,
+  maxDepth: Infinity,
+  health: 85
+},
+{
+  name: "Calcium",
+  rarity: "1/500",
+  group: "Common",
+  value: "$0.111",
+  minDepth: 6000,
+  maxDepth: 9000,
+  health: 8
+},
+{
+  name: "Magnesium",
+  rarity: "1/550",
+  group: "Common",
+  value: "$0.122",
+  minDepth: 5000,
+  maxDepth: 9000,
+  health: 18
+},
+{
+  name: "Niobium",
+  rarity: "1/600",
+  group: "Common",
+  value: "$0.133",
+  minDepth: 4000,
+  maxDepth: 7000,
+  health: 42
+},
+{
+  name: "Lead",
+  rarity: "1/600",
+  group: "Common",
+  value: "$0.133",
+  minDepth: 0,
+  maxDepth: 6000,
+  health: 28
+},
+{
+  name: "Lanthanum",
+  rarity: "1/625",
+  group: "Common",
+  value: "$0.139",
+  minDepth: 7000,
+  maxDepth: 8000,
+  health: 30
+},
+{
+  name: "Cerium",
+  rarity: "1/700",
+  group: "Common",
+  value: "$0.156",
+  minDepth: 7000,
+  maxDepth: 8000,
+  health: 30
+},
+{
+  name: "Fluorine",
+  rarity: "1/800",
+  group: "Common",
+  value: "$0.178",
+  minDepth: 6000,
+  maxDepth: 7000,
+  health: 24
+}
   ];
 
   const tbody = document.querySelector("tbody");
@@ -186,6 +771,7 @@ function renderTable(list) {
 
   </body>
 </html>
+
 
 
 
