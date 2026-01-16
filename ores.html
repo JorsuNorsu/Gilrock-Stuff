@@ -110,8 +110,14 @@ body {
 .content {
   flex: 1;
   padding: 30px;
-  background: #020617;
+  background: radial-gradient(
+    ellipse at top,
+    #0b1220 0%,
+    #020617 55%,
+    #000000 100%
+  );
 }
+
 
 
 /* ===== CARD ===== */
@@ -120,7 +126,7 @@ body {
   margin: 20px auto 0;
   background: transparent;
   border-radius: 0;
-  box-shadow: none;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.03);
 }
 
 .page-title {
@@ -254,7 +260,7 @@ body {
 /* ===== TABLE ===== */
 table {
   border-collapse: separate;
-  border-spacing: 0 4px;
+ border-spacing: 0 2px;
   background: transparent;
 
    width: 100%;
@@ -555,6 +561,7 @@ document.documentElement.style.setProperty("--filter-height", fb.offsetHeight+"p
 
 </body>
 </html>
+
 
 
 
