@@ -200,17 +200,18 @@ td:first-child {
 
 <script>
 const layers = [
-  { id:"stone",min:0,max:1000 },
-  { id:"basalt",min:1000,max:2000 },
-  { id:"limestone",min:2000,max:3000 },
-  { id:"gneiss",min:3000,max:4000 },
-  { id:"tuff",min:4000,max:5000 },
-  { id:"marble",min:5000,max:6000 },
-  { id:"obsidian",min:6000,max:7000 },
-  { id:"peridotite",min:7000,max:8000 },
-  { id:"magma",min:8000,max:9000 },
-  { id:"void",min:9000,max:Infinity }
+  { id:"stone", name:"Stone Layer", min:0, max:1000, icon:"🪨" },
+  { id:"basalt", name:"Basalt Layer", min:1000, max:2000, icon:"⚫" },
+  { id:"limestone", name:"Limestone Layer", min:2000, max:3000, icon:"⚪" },
+  { id:"gneiss", name:"Gneiss Layer", min:3000, max:4000, icon:"🩶" },
+  { id:"tuff", name:"Tuff Layer", min:4000, max:5000, icon:"🟤" },
+  { id:"marble", name:"Marble Layer", min:5000, max:6000, icon:"🤍" },
+  { id:"obsidian", name:"Obsidian Layer", min:6000, max:7000, icon:"🟣" },
+  { id:"peridotite", name:"Peridotite Layer", min:7000, max:8000, icon:"🟢" },
+  { id:"magma", name:"Magma & Lava Layer", min:8000, max:9000, icon:"🟠" },
+  { id:"void", name:"Void Layer", min:9000, max:Infinity, icon:"🟪" }
 ];
+
 
 const rarityColors = {
   Common:"#9ca3af33",
@@ -317,3 +318,4 @@ document.documentElement.style.setProperty("--filter-height", fb.offsetHeight+"p
 
 </body>
 </html>
+
