@@ -353,7 +353,7 @@ const consumableHead = `
 </tr>`;
 
 const itemHead = `
-<tr>
+<tr style="background: ${getRarityGradient(i.rarity)};">
   <th>Name</th>
   <th>Rarity</th>
   <th>Value</th>
@@ -373,6 +373,18 @@ const itemHead = `
     })
     .join("<br>");
 }
+const rarityGradients = {
+  common: "linear-gradient(90deg, rgba(148,163,184,0.18), #0b1220 70%)",
+  uncommon: "linear-gradient(90deg, rgba(74,222,128,0.22), #0b1220 70%)",
+  rare: "linear-gradient(90deg, rgba(56,189,248,0.25), #0b1220 70%)",
+  epic: "linear-gradient(90deg, rgba(168,85,247,0.28), #0b1220 70%)",
+  legendary: "linear-gradient(90deg, rgba(250,204,21,0.30), #0b1220 70%)"
+};
+
+function getRarityGradient(rarity) {
+  return rarityGradients[rarity?.toLowerCase()] 
+    || "linear-gradient(180deg, #0b1220, #020617)";
+}
 
 function render() {
   tableBody.innerHTML = "";
@@ -387,7 +399,7 @@ function render() {
 
     list.forEach(c => {
       tableBody.innerHTML += `
-        <tr>
+        <tr style="background: ${getRarityGradient(i.rarity)};">
           <td>${c.name}</td>
           <td>${c.duration} min</td>
           <td>${formatEffects(c.buffs)}</td>
