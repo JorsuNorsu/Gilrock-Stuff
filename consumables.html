@@ -349,50 +349,61 @@ const itemHead = `
 function render() {
   tableBody.innerHTML = "";
 
-  if (currentTab === "consumables") {
-    tableHead.innerHTML = consumableHead;
-    const list = consumables.filter(c => c.name.toLowerCase().includes(search));
+ if (currentTab === "consumables") {
+  tableHead.innerHTML = consumableHead;
 
-    if (!list.length) {
-      tableBody.innerHTML = `<tr><td colspan="5" class="no-results">No consumables found</td></tr>`;
-    }
+  const list = consumables.filter(c =>
+    c.name.toLowerCase().includes(search)
+  );
 
-list.forEach(i => {
-  tableBody.innerHTML += `
-    <tr class="rarity-${i.rarity.toLowerCase()}">
-      <td>${i.name}</td>
-      <td class="rarity-${i.rarity.toLowerCase()}">${i.rarity}</td>
-      <td>${i.value ?? "-"}</td>
-      <td>${i.craftingUses.join("<br>")}</td>
-      <td class="info">${i.information.join("<br>")}</td>
-    </tr>`;
-});
+  tableBody.innerHTML = "";
 
-    resultCount.textContent = `${list.length} consumables`;
+  if (!list.length) {
+    tableBody.innerHTML =
+      `<tr><td colspan="5" class="no-results">No consumables found</td></tr>`;
   }
 
-  if (currentTab === "items") {
-    tableHead.innerHTML = itemHead;
-    const list = items.filter(i => i.name.toLowerCase().includes(search));
+  list.forEach(c => {
+    tableBody.innerHTML += `
+      <tr>
+        <td>${c.name}</td>
+        <td>${c.duration} min</td>
+        <td>${formatEffects(c.buffs)}</td>
+        <td>${c.debuffs.length ? formatEffects(c.debuffs) : "-"}</td>
+        <td class="info">${c.description ?? "-"}</td>
+      </tr>`;
+  });
 
-    if (!list.length) {
-      tableBody.innerHTML = `<tr><td colspan="5" class="no-results">No items found</td></tr>`;
-    }
-
- list.forEach(c => {
-  tableBody.innerHTML += `
-    <tr>
-      <td>${c.name}</td>
-      <td>${c.duration} min</td>
-      <td>${formatEffects(c.buffs)}</td>
-      <td>${c.debuffs.length ? formatEffects(c.debuffs) : "-"}</td>
-      <td class="info">${c.description ?? "-"}</td>
-    </tr>`;
-});
+  resultCount.textContent = `${list.length} consumables`;
+}
 
 
-    resultCount.textContent = `${list.length} items`;
+if (currentTab === "items") {
+  tableHead.innerHTML = itemHead;
+
+  const list = items.filter(i =>
+    i.name.toLowerCase().includes(search)
+  );
+
+  tableBody.innerHTML = "";
+
+  if (!list.length) {
+    tableBody.innerHTML =
+      `<tr><td colspan="5" class="no-results">No items found</td></tr>`;
   }
+
+  list.forEach(i => {
+    tableBody.innerHTML += `
+      <tr class="rarity-${i.rarity.toLowerCase()}">
+        <td>${i.name}</td>
+        <td class="rarity-${i.rarity.toLowerCase()}">${i.rarity}</td>
+        <td>${i.value ?? "-"}</td>
+        <td>${i.craftingUses.join("<br>")}</td>
+        <td class="info">${i.information.join("<br>")}</td>
+      </tr>`;
+  });
+
+  resultCount.textContent = `${list.length} items`;
 }
 
 document.querySelectorAll(".tab").forEach(tab => {
