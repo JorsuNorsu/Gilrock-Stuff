@@ -163,7 +163,7 @@ body {
   opacity: .8;
 }
 
-/* ===== TABLE (ONE LOOK ONLY) ===== */
+/* ===== TABLE ===== */
 table {
   width: 100%;
   table-layout: fixed;
@@ -177,11 +177,10 @@ thead th {
   font-size: 13px;
   letter-spacing: .12em;
   text-transform: uppercase;
-  opacity: .8;
+  opacity: .85;
 }
 
 tbody tr {
-  background: linear-gradient(180deg, #0b1220, #020617);
   transition: filter .15s ease;
 }
 
@@ -203,29 +202,62 @@ tbody tr td:first-child {
 
 tbody tr td:last-child {
   border-radius: 0 10px 10px 0;
-  opacity: .95;
 }
 
 /* ===== BUFF / DEBUFF ===== */
 .buff { color: #4ade80; font-weight: 600; }
 .debuff { color: #f87171; font-weight: 600; }
 
-/* ===== RARITY ROW BACKGROUNDS ONLY ===== */
+/* ===== GLOBAL RARITY GRADIENTS (ORES STYLE) ===== */
+
 tr.rarity-common {
-  background: linear-gradient(90deg, rgba(148,163,184,0.18), #0b1220 70%);
+  background: linear-gradient(
+    90deg,
+    rgba(148,163,184,0.20),
+    rgba(11,18,32,0.95) 65%
+  );
 }
+
 tr.rarity-uncommon {
-  background: linear-gradient(90deg, rgba(74,222,128,0.22), #0b1220 70%);
+  background: linear-gradient(
+    90deg,
+    rgba(74,222,128,0.25),
+    rgba(11,18,32,0.95) 65%
+  );
 }
+
 tr.rarity-rare {
-  background: linear-gradient(90deg, rgba(56,189,248,0.26), #0b1220 70%);
+  background: linear-gradient(
+    90deg,
+    rgba(56,189,248,0.30),
+    rgba(11,18,32,0.95) 65%
+  );
 }
+
 tr.rarity-epic {
-  background: linear-gradient(90deg, rgba(168,85,247,0.30), #0b1220 70%);
+  background: linear-gradient(
+    90deg,
+    rgba(168,85,247,0.35),
+    rgba(11,18,32,0.95) 65%
+  );
 }
+
 tr.rarity-legendary {
-  background: linear-gradient(90deg, rgba(250,204,21,0.32), #0b1220 70%);
+  background: linear-gradient(
+    90deg,
+    rgba(250,204,21,0.38),
+    rgba(11,18,32,0.95) 65%
+  );
 }
+
+tr.rarity-mythic {
+  background: linear-gradient(
+    90deg,
+    rgba(236,72,153,0.40),
+    rgba(11,18,32,0.95) 65%
+  );
+}
+
 </style>
 </head>
 
