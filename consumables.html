@@ -360,8 +360,7 @@ const itemHead = `
   <th>Crafting Uses</th>
   <th>Information</th>
 </tr>`;
-  }
-function formatEffects(list) {
+  function formatEffects(list) {
   return list
     .map(e => {
       if (e.trim().startsWith("+")) {
@@ -374,7 +373,6 @@ function formatEffects(list) {
     })
     .join("<br>");
 }
-
 
 function render() {
   tableBody.innerHTML = "";
