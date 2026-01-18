@@ -1429,7 +1429,7 @@ console.log("ores-data.js loaded");
   rarity: "1/250,000,000",
   group: "Immortal",
   value: "$208,333.333",
-  minDepth: 0,
+  minDepth: 1000,
   maxDepth: Infinity,
   health: 100
 },
@@ -1440,6 +1440,15 @@ console.log("ores-data.js loaded");
   value: "$229,166.667",
   minDepth: 5000,
   maxDepth: 6000,
+  health: 100
+},
+{
+  name: "Zodiac",
+  rarity: "1/500,000,000",
+  group: "Immortal",
+  value: "$416,666.667",
+  minDepth: 0,
+  maxDepth: 1000,
   health: 100
 },
 {
