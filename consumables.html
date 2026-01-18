@@ -173,6 +173,12 @@ body {
   align-self: center;
   opacity: .8;
 }
+/* ===== RARITY COLORS ===== */
+.rarity-common    { color: #e5e7eb; }
+.rarity-uncommon  { color: #4ade80; }
+.rarity-rare      { color: #38bdf8; }
+.rarity-epic      { color: #a855f7; }
+.rarity-legendary { color: #facc15; }
 
 /* ===== TABLE ===== */
 table {
@@ -261,7 +267,16 @@ tbody td:nth-child(3),
 tbody td:nth-child(4) {
   font-size: 14.5px;
 }
+/* ===== BUFF / DEBUFF COLORS ===== */
+.buff {
+  color: #4ade80; 
+  font-weight: 600;
+}
 
+.debuff {
+  color: #f87171; 
+  font-weight: 600;
+}
 </style>
 </head>
 
@@ -345,6 +360,20 @@ const itemHead = `
   <th>Crafting Uses</th>
   <th>Information</th>
 </tr>`;
+  }
+function formatEffects(list) {
+  return list
+    .map(e => {
+      if (e.trim().startsWith("+")) {
+        return `<span class="buff">${e}</span>`;
+      }
+      if (e.trim().startsWith("-")) {
+        return `<span class="debuff">${e}</span>`;
+      }
+      return e;
+    })
+    .join("<br>");
+}
 
 
 function render() {
@@ -363,8 +392,8 @@ function render() {
         <tr>
           <td>${c.name}</td>
           <td>${c.duration} min</td>
-          <td>${c.buffs.join("<br>")}</td>
-          <td>${c.debuffs.length ? c.debuffs.join("<br>") : "-"}</td>
+          <td>${formatEffects(c.buffs)}</td>
+          <td>${c.debuffs.length ? formatEffects(c.debuffs) : "-"}</td>
           <td class="info">${c.description ?? "-"}</td>
         </tr>`;
     });
@@ -384,7 +413,7 @@ function render() {
       tableBody.innerHTML += `
         <tr>
           <td>${i.name}</td>
-          <td>${i.rarity}</td>
+          <td class="rarity-${i.rarity.toLowerCase()}">${i.rarity}</td>
           <td>${i.value ?? "-"}</td>
           <td>${i.craftingUses.join("<br>")}</td>
          <td class="info">${i.information.join("<br>")}</td>
@@ -422,6 +451,7 @@ document.documentElement.style.setProperty(
   "--filter-height",
   fb.offsetHeight + "px"
 );
+
 
 
 </script>
