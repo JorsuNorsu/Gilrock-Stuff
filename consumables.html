@@ -208,55 +208,7 @@ tbody tr td:last-child {
 .buff { color: #4ade80; font-weight: 600; }
 .debuff { color: #f87171; font-weight: 600; }
 
-/* ===== GLOBAL RARITY GRADIENTS (ORES STYLE) ===== */
 
-tr.rarity-common {
-  background: linear-gradient(
-    90deg,
-    rgba(148,163,184,0.20),
-    rgba(11,18,32,0.95) 65%
-  );
-}
-
-tr.rarity-uncommon {
-  background: linear-gradient(
-    90deg,
-    rgba(74,222,128,0.25),
-    rgba(11,18,32,0.95) 65%
-  );
-}
-
-tr.rarity-rare {
-  background: linear-gradient(
-    90deg,
-    rgba(56,189,248,0.30),
-    rgba(11,18,32,0.95) 65%
-  );
-}
-
-tr.rarity-epic {
-  background: linear-gradient(
-    90deg,
-    rgba(168,85,247,0.35),
-    rgba(11,18,32,0.95) 65%
-  );
-}
-
-tr.rarity-legendary {
-  background: linear-gradient(
-    90deg,
-    rgba(250,204,21,0.38),
-    rgba(11,18,32,0.95) 65%
-  );
-}
-
-tr.rarity-mythic {
-  background: linear-gradient(
-    90deg,
-    rgba(236,72,153,0.40),
-    rgba(11,18,32,0.95) 65%
-  );
-}
 
 </style>
 </head>
@@ -338,6 +290,31 @@ function formatEffects(list) {
     e.startsWith("-") ? `<span class="debuff">${e}</span>` : e
   ).join("<br>");
 }
+const rarityColors = {
+  Common:   "rgba(148,163,184,0.18)",
+  Uncommon:"rgba(74,222,128,0.22)",
+  Rare:    "rgba(56,189,248,0.25)",
+  Epic:    "rgba(168,85,247,0.28)",
+  Legendary:"rgba(250,204,21,0.30)",
+  Mythic:  "rgba(236,72,153,0.30)"
+};
+
+function rarityGradient(rarity) {
+  const base = rarityColors[rarity];
+
+  if (!base) {
+    return "linear-gradient(90deg, #111827 0%, #0b1220 100%)";
+  }
+
+  return `
+    linear-gradient(
+      90deg,
+      ${base} 0%,
+      rgba(11,18,32,0.95) 60%,
+      #0b1220 100%
+    )
+  `;
+}
 
 function render() {
   tableBody.innerHTML = "";
@@ -346,16 +323,18 @@ function render() {
     tableHead.innerHTML = consumableHead;
     const list = consumables.filter(c => c.name.toLowerCase().includes(search));
 
-   list.forEach(c => {
+  list.forEach(c => {
   tableBody.innerHTML += `
-    <tr class="rarity-${c.rarity.toLowerCase()}">
+    <tr style="background: ${rarityGradient(c.rarity)};">
       <td>${c.name}</td>
-          <td>${c.duration} min</td>
-          <td>${formatEffects(c.buffs)}</td>
-          <td>${c.debuffs.length ? formatEffects(c.debuffs) : "-"}</td>
-          <td>${c.description}</td>
-        </tr>`;
-    });
+      <td>${c.duration} min</td>
+      <td>${formatEffects(c.buffs)}</td>
+      <td>${c.debuffs.length ? formatEffects(c.debuffs) : "-"}</td>
+      <td>${c.description}</td>
+    </tr>
+  `;
+});
+
 
     resultCount.textContent = `${list.length} consumables`;
   }
@@ -364,16 +343,17 @@ function render() {
     tableHead.innerHTML = itemHead;
     const list = items.filter(i => i.name.toLowerCase().includes(search));
 
-    list.forEach(i => {
-      tableBody.innerHTML += `
-        <tr class="rarity-${i.rarity.toLowerCase()}">
-          <td>${i.name}</td>
-          <td>${i.rarity}</td>
-          <td>${i.value ?? "-"}</td>
-          <td>${i.craftingUses.join("<br>")}</td>
-          <td>${i.information.join("<br>")}</td>
-        </tr>`;
-    });
+   list.forEach(i => {
+  tableBody.innerHTML += `
+    <tr style="background: ${rarityGradient(i.rarity)};">
+      <td>${i.name}</td>
+      <td>${i.rarity}</td>
+      <td>${i.value ?? "-"}</td>
+      <td>${i.craftingUses.join("<br>")}</td>
+      <td>${i.information.join("<br>")}</td>
+    </tr>
+  `;
+});
 
     resultCount.textContent = `${list.length} items`;
   }
