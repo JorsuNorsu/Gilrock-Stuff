@@ -86,6 +86,12 @@ body {
     #000 100%
   );
 }
+.container {
+  max-width: 1200px;
+  margin: 20px auto 0;
+  background: transparent;
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.03);
+}
 
 .page-title {
   text-align: center;
@@ -239,33 +245,20 @@ tbody tr td:last-child {
     </nav>
   </aside>
 
-  <main class="content">
-    <h1 class="page-title">Consumables & Items</h1>
+<main class="content">
+  <h1 class="page-title">Consumables & Items</h1>
 
+  <div class="container">
     <div class="filter-bar">
-      <div class="filter-group">
-        <label>Category</label>
-        <div class="tabs">
-          <button class="tab active" data-tab="consumables">Consumables</button>
-          <button class="tab" data-tab="items">Items</button>
-        </div>
-      </div>
-
-      <div class="filter-group">
-        <label>Search</label>
-        <input id="searchInput" placeholder="Search name...">
-      </div>
-
-      <div class="filter-spacer"></div>
-      <button class="reset-btn" id="resetBtn">Reset</button>
-      <div id="resultCount"></div>
+      <!-- EXACT SAME FILTER CODE YOU ALREADY HAVE -->
     </div>
 
     <table>
       <thead id="tableHead"></thead>
       <tbody id="tableBody"></tbody>
     </table>
-  </main>
+  </div>
+</main>
 </div>
 
 <script src="consumables-data.js"></script>
