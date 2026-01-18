@@ -1429,7 +1429,7 @@ console.log("ores-data.js loaded");
   rarity: "1/250,000,000",
   group: "Immortal",
   value: "$208,333.333",
-  minDepth: 0,
+  minDepth: 1000,
   maxDepth: Infinity,
   health: 100
 },
