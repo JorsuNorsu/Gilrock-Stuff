@@ -2,52 +2,154 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Consumables & Items</title>
+<title>Gilrock - Consumables & Items</title>
 
 <style>
 :root {
   --accent: #3b82f6;
+  --filter-height: 72px;
+  --control-height: 42px;
+  --control-width: 220px;
 }
 
+/* ===== BASE ===== */
 body {
   margin: 0;
   font-family: Inter, system-ui, Arial, sans-serif;
-  background: radial-gradient(circle at top, #0b1220 0%, #020617 60%);
+  background: #020617;
   color: white;
 }
 
-/* ===== LAYOUT ===== */
-.content {
-  margin-left: 96px;
-  padding: 40px;
+.app {
   display: flex;
-  justify-content: center;
+  min-height: 100vh;
 }
 
-.page-card {
-  background: linear-gradient(180deg, rgba(17,24,39,.85), rgba(2,6,23,.85));
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 16px;
-  padding: 32px 36px;
+/* ===== SIDEBAR ===== */
+.sidebar {
+  width: 96px;
+  background: linear-gradient(180deg, #0b1220, #020617);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.logo {
+  font-size: 44px;
+  font-weight: 900;
+  color: var(--accent);
+  margin-bottom: 40px;
+  text-decoration: none;
+}
+
+.side-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
   width: 100%;
-  max-width: 1200px;
 }
 
-/* ===== TABS ===== */
+.side-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 0;
+  text-decoration: none;
+  color: white;
+  opacity: .75;
+}
+
+.side-item.active { opacity: 1; }
+
+.side-item.active::after {
+  content:"";
+  position:absolute;
+  right:0;
+  top:15%;
+  width:3px;
+  height:70%;
+  background:var(--accent);
+}
+
+/* ===== CONTENT ===== */
+.content {
+  flex: 1;
+  padding: 30px;
+  background: radial-gradient(
+    ellipse at top,
+    #0b1220 0%,
+    #020617 60%,
+    #000 100%
+  );
+}
+
+.page-title {
+  text-align: center;
+  font-size: 30px;
+  letter-spacing: .12em;
+  margin: 0 0 22px;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* ===== FILTER BAR ===== */
+.filter-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  gap: 16px;
+  padding: 14px 20px;
+  background: linear-gradient(180deg, #0a1020, #060b18);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.filter-group label {
+  font-size: 12px;
+  text-transform: uppercase;
+  opacity: .8;
+}
+
+.filter-group input {
+  height: var(--control-height);
+  width: var(--control-width);
+  padding: 0 12px;
+  border-radius: 8px;
+  background: #020617;
+  color: white;
+  border: 1px solid rgba(255,255,255,.15);
+}
+
 .tabs {
   display: flex;
-  gap: 12px;
-  margin: 16px 0 24px;
+  gap: 8px;
 }
 
 .tab {
-  background: none;
-  border: 1px solid rgba(255,255,255,.15);
-  color: white;
-  padding: 8px 16px;
+  height: var(--control-height);
+  padding: 0 16px;
   border-radius: 8px;
+  background: #020617;
+  color: white;
+  border: 1px solid rgba(255,255,255,.15);
   cursor: pointer;
-  opacity: 0.6;
+  opacity: .6;
 }
 
 .tab.active {
@@ -55,141 +157,207 @@ body {
   border-color: var(--accent);
 }
 
-.tab:hover {
-  opacity: 1;
+.filter-spacer { flex: 1; }
+
+.reset-btn {
+  height: var(--control-height);
+  padding: 0 16px;
+  border-radius: 8px;
+  background: #020617;
+  color: white;
+  border: 1px solid rgba(255,255,255,.15);
+  cursor: pointer;
+}
+
+#resultCount {
+  align-self: center;
+  opacity: .8;
 }
 
 /* ===== TABLE ===== */
 table {
   width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
+  border-collapse: separate;
+  border-spacing: 0 2px;
 }
 
 thead th {
-  text-align: left;
-  padding: 10px;
-  border-bottom: 1px solid rgba(255,255,255,.15);
-  opacity: 0.8;
+  background: linear-gradient(180deg, #111827, #020617);
+  padding: 12px;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+tbody tr {
+  background: linear-gradient(180deg, #0b1220, #020617);
 }
 
 tbody td {
-  padding: 10px;
-  vertical-align: top;
-  border-bottom: 1px solid rgba(255,255,255,.08);
+  padding: 14px 12px;
+  text-align: center;
 }
 
-tbody tr:hover {
-  background: rgba(255,255,255,.03);
+.no-results {
+  text-align: center;
+  opacity: .6;
+  padding: 20px;
 }
-
 </style>
 </head>
 
 <body>
 
-<main class="content">
-  <div class="page-card">
-    <h1>Consumables & Items</h1>
+<div class="app">
+  <aside class="sidebar">
+    <a href="index.html" class="logo">GR</a>
+    <nav class="side-nav">
+      <a href="index.html" class="side-item">
+        <span class="label">Home</span>
+      </a>
+      <a href="ores.html" class="side-item">
+        <span class="label">Ores</span>
+      </a>
+      <a href="consumables.html" class="side-item active">
+        <span class="label">Items</span>
+      </a>
+    </nav>
+  </aside>
 
-    <div class="tabs">
-      <button class="tab active" data-tab="consumables">Consumables</button>
-      <button class="tab" data-tab="items">Items</button>
+  <main class="content">
+    <h1 class="page-title">Consumables & Items</h1>
+
+    <div class="container">
+      <div class="filter-bar">
+
+        <div class="filter-group">
+          <label>Category</label>
+          <div class="tabs">
+            <button class="tab active" data-tab="consumables">Consumables</button>
+            <button class="tab" data-tab="items">Items</button>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <label>Search</label>
+          <input id="searchInput" placeholder="Search name...">
+        </div>
+
+        <div class="filter-spacer"></div>
+
+        <button class="reset-btn" id="resetBtn">Reset</button>
+        <div id="resultCount"></div>
+      </div>
+
+      <table>
+        <thead id="tableHead"></thead>
+        <tbody id="tableBody"></tbody>
+      </table>
     </div>
+  </main>
+</div>
 
-    <table id="dataTable">
-      <thead></thead>
-      <tbody></tbody>
-    </table>
-  </div>
-</main>
-
-<!-- DATA FILES -->
 <script src="consumables-data.js"></script>
 <script src="items-data.js"></script>
 
 <script>
-const thead = document.querySelector("#dataTable thead");
-const tbody = document.querySelector("#dataTable tbody");
+const tableHead = document.getElementById("tableHead");
+const tableBody = document.getElementById("tableBody");
+const searchInput = document.getElementById("searchInput");
+const resultCount = document.getElementById("resultCount");
 
-/* ===== HEADERS ===== */
-const consumableHeaders = [
-  "Name",
-  "Duration",
-  "Buffs",
-  "Debuffs",
-  "Information"
-];
+let currentTab = "consumables";
+let search = "";
 
-const itemHeaders = [
-  "Name",
-  "Rarity",
-  "Value",
-  "Information",
-  "Crafting Uses"
-];
+const consumableHead = `
+<tr>
+  <th>Name</th>
+  <th>Duration</th>
+  <th>Buffs</th>
+  <th>Debuffs</th>
+  <th>Information</th>
+</tr>`;
 
-/* ===== CORE RENDER ===== */
-function renderTable(headers, rows) {
-  thead.innerHTML = `
-    <tr>${headers.map(h => `<th>${h}</th>`).join("")}</tr>
-  `;
-  tbody.innerHTML = "";
-  rows.forEach(r => tbody.appendChild(r));
+const itemHead = `
+<tr>
+  <th>Name</th>
+  <th>Rarity</th>
+  <th>Value</th>
+  <th>Information</th>
+  <th>Crafting Uses</th>
+</tr>`;
+
+function render() {
+  tableBody.innerHTML = "";
+
+  if (currentTab === "consumables") {
+    tableHead.innerHTML = consumableHead;
+    const list = consumables.filter(c => c.name.toLowerCase().includes(search));
+
+    if (!list.length) {
+      tableBody.innerHTML = `<tr><td colspan="5" class="no-results">No consumables found</td></tr>`;
+    }
+
+    list.forEach(c => {
+      tableBody.innerHTML += `
+        <tr>
+          <td>${c.name}</td>
+          <td>${c.duration} min</td>
+          <td>${c.buffs.join("<br>")}</td>
+          <td>${c.debuffs.length ? c.debuffs.join("<br>") : "-"}</td>
+          <td>${c.description ?? "-"}</td>
+        </tr>`;
+    });
+
+    resultCount.textContent = `${list.length} consumables`;
+  }
+
+  if (currentTab === "items") {
+    tableHead.innerHTML = itemHead;
+    const list = items.filter(i => i.name.toLowerCase().includes(search));
+
+    if (!list.length) {
+      tableBody.innerHTML = `<tr><td colspan="5" class="no-results">No items found</td></tr>`;
+    }
+
+    list.forEach(i => {
+      tableBody.innerHTML += `
+        <tr>
+          <td>${i.name}</td>
+          <td>${i.rarity}</td>
+          <td>${i.value ?? "-"}</td>
+          <td>${i.information.join("<br>")}</td>
+          <td>${i.craftingUses.join("<br>")}</td>
+        </tr>`;
+    });
+
+    resultCount.textContent = `${list.length} items`;
+  }
 }
 
-/* ===== CONSUMABLES ===== */
-function renderConsumables() {
-  const rows = consumables.map(c => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${c.name}</td>
-      <td>${c.duration} min</td>
-      <td>${c.buffs.join("<br>")}</td>
-      <td>${c.debuffs.length ? c.debuffs.join("<br>") : "-"}</td>
-      <td>${c.description ?? "-"}</td>
-    `;
-    return tr;
-  });
-
-  renderTable(consumableHeaders, rows);
-}
-
-/* ===== ITEMS ===== */
-function renderItems() {
-  const rows = items.map(i => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${i.name}</td>
-      <td>${i.rarity}</td>
-      <td>${i.value ?? "-"}</td>
-      <td>${i.information.join("<br>")}</td>
-      <td>${i.craftingUses.join("<br>")}</td>
-    `;
-    return tr;
-  });
-
-  renderTable(itemHeaders, rows);
-}
-
-/* ===== TAB LOGIC ===== */
 document.querySelectorAll(".tab").forEach(tab => {
-  tab.addEventListener("click", () => {
+  tab.onclick = () => {
     document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
     tab.classList.add("active");
-
-    if (tab.dataset.tab === "consumables") {
-      renderConsumables();
-    } else {
-      renderItems();
-    }
-  });
+    currentTab = tab.dataset.tab;
+    render();
+  };
 });
 
-/* ===== INITIAL LOAD ===== */
-renderConsumables();
+searchInput.oninput = () => {
+  search = searchInput.value.toLowerCase();
+  render();
+};
+
+document.getElementById("resetBtn").onclick = () => {
+  search = "";
+  searchInput.value = "";
+  render();
+};
+
+render();
 </script>
 
 </body>
 </html>
+
 
