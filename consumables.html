@@ -286,7 +286,6 @@ td.info {
   <div class="filter-spacer"></div>
 
   <button class="reset-btn" id="resetBtn">Reset</button>
-  <div id="resultCount"></div>
 </div>
 
 
@@ -305,7 +304,7 @@ td.info {
 const tableHead = document.getElementById("tableHead");
 const tableBody = document.getElementById("tableBody");
 const searchInput = document.getElementById("searchInput");
-const resultCount = document.getElementById("resultCount");
+
 
 let currentTab = "consumables";
 let search = "";
@@ -383,7 +382,7 @@ function render() {
 });
 
 
-    resultCount.textContent = `${list.length} consumables`;
+  
   }
 
   if (currentTab === "items") {
@@ -405,7 +404,6 @@ function render() {
   `;
 });
 
-    resultCount.textContent = `${list.length} items`;
   }
 }
 
