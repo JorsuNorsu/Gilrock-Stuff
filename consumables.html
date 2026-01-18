@@ -2,14 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Gilrock - Consumables & Items</title>
+<title>Gilrock – Consumables & Items</title>
 
 <style>
 :root {
   --accent: #3b82f6;
   --filter-height: 72px;
-  --control-height: 42px;
-  --control-width: 220px;
 }
 
 /* ===== BASE ===== */
@@ -46,60 +44,27 @@ body {
   text-decoration: none;
 }
 
-.side-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  width: 100%;
-}
-
 .side-item {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  padding: 14px 0;
-  text-decoration: none;
-  color: white;
   opacity: .75;
+  color: white;
+  text-decoration: none;
+  margin-bottom: 20px;
 }
 
 .side-item.active { opacity: 1; }
-
-.side-item.active::after {
-  content:"";
-  position:absolute;
-  right:0;
-  top:15%;
-  width:3px;
-  height:70%;
-  background:var(--accent);
-}
 
 /* ===== CONTENT ===== */
 .content {
   flex: 1;
   padding: 30px;
-  background: radial-gradient(
-    ellipse at top,
-    #0b1220 0%,
-    #020617 60%,
-    #000 100%
-  );
+  background: radial-gradient(ellipse at top, #0b1220, #020617 60%, #000);
 }
 
 .page-title {
   text-align: center;
   font-size: 30px;
   letter-spacing: .12em;
-  margin: 0 0 22px;
-}
-
-/* ===== CONTAINER ===== */
-.container {
-  max-width: 1200px;
-  margin: auto;
+  margin-bottom: 20px;
 }
 
 /* ===== FILTER BAR ===== */
@@ -114,73 +79,67 @@ body {
   border-bottom: 1px solid rgba(255,255,255,.06);
 }
 
-.filter-group {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.filter-group label {
-  font-size: 12px;
-  text-transform: uppercase;
-  opacity: .8;
-}
-
-.filter-group input {
-  height: var(--control-height);
-  width: var(--control-width);
-  padding: 0 12px;
-  border-radius: 8px;
+.tabs button {
   background: #020617;
-  color: white;
   border: 1px solid rgba(255,255,255,.15);
-}
-
-.tabs {
-  display: flex;
-  gap: 8px;
-}
-
-.tab {
-  height: var(--control-height);
-  padding: 0 16px;
+  color: white;
+  padding: 8px 14px;
   border-radius: 8px;
-  background: #020617;
-  color: white;
-  border: 1px solid rgba(255,255,255,.15);
   cursor: pointer;
   opacity: .6;
 }
 
-.tab.active {
+.tabs button.active {
   opacity: 1;
   border-color: var(--accent);
 }
 
 .filter-spacer { flex: 1; }
 
-.reset-btn {
-  height: var(--control-height);
-  padding: 0 16px;
-  border-radius: 8px;
-  background: #020617;
-  color: white;
-  border: 1px solid rgba(255,255,255,.15);
-  cursor: pointer;
+/* ===== TABLE ===== */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 4px;
 }
 
-#resultCount {
-  align-self: center;
-  opacity: .8;
+thead th {
+  position: sticky;
+  top: var(--filter-height);
+  background: linear-gradient(180deg, #111827, #020617);
+  padding: 14px;
+  font-size: 14px;
+  letter-spacing: .1em;
 }
-/* ===== RARITY COLORS ===== */
-.rarity-common    { color: #e5e7eb; }
-.rarity-uncommon  { color: #4ade80; }
-.rarity-rare      { color: #38bdf8; }
-.rarity-epic      { color: #a855f7; }
+
+tbody tr {
+  background: linear-gradient(180deg, #0b1220, #020617);
+}
+
+tbody td {
+  padding: 14px;
+  text-align: center;
+  font-size: 15px;
+}
+
+/* ===== INFO COLUMN ===== */
+td.info {
+  text-align: left;
+  opacity: .9;
+}
+
+/* ===== BUFF / DEBUFF ===== */
+.buff { color: #4ade80; font-weight: 600; }
+.debuff { color: #f87171; font-weight: 600; }
+
+/* ===== RARITY TEXT ===== */
+.rarity-common { color: #e5e7eb; }
+.rarity-uncommon { color: #4ade80; }
+.rarity-rare { color: #38bdf8; }
+.rarity-epic { color: #a855f7; }
 .rarity-legendary { color: #facc15; }
-  
-/* ===== RARITY ROW STRIP ===== */
+
+/* ===== RARITY STRIP (THIS IS THE MAGIC) ===== */
 .rarity-row td:first-child {
   position: relative;
   overflow: hidden;
@@ -193,98 +152,13 @@ body {
   background: var(--rarity-gradient);
   z-index: -1;
 }
-.rarity-common    { --rarity-gradient: linear-gradient(90deg, rgba(148,163,184,0.25), transparent 70%); }
-.rarity-uncommon  { --rarity-gradient: linear-gradient(90deg, rgba(74,222,128,0.28), transparent 70%); }
-.rarity-rare      { --rarity-gradient: linear-gradient(90deg, rgba(56,189,248,0.32), transparent 70%); }
-.rarity-epic      { --rarity-gradient: linear-gradient(90deg, rgba(168,85,247,0.35), transparent 70%); }
-.rarity-legendary { --rarity-gradient: linear-gradient(90deg, rgba(250,204,21,0.38), transparent 70%); }
 
-/* ===== TABLE ===== */
-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 2px;
-}
+.rarity-common { --rarity-gradient: linear-gradient(90deg, rgba(148,163,184,.3), transparent 70%); }
+.rarity-uncommon { --rarity-gradient: linear-gradient(90deg, rgba(74,222,128,.35), transparent 70%); }
+.rarity-rare { --rarity-gradient: linear-gradient(90deg, rgba(56,189,248,.4), transparent 70%); }
+.rarity-epic { --rarity-gradient: linear-gradient(90deg, rgba(168,85,247,.45), transparent 70%); }
+.rarity-legendary { --rarity-gradient: linear-gradient(90deg, rgba(250,204,21,.5), transparent 70%); }
 
-thead th {
-  position: sticky;
-  top: var(--filter-height);
-
-  background: linear-gradient(
-    180deg,
-    #111827 0%,
-    #0b1220 60%,
-    #020617 100%
-  );
-
-  color: #e5e7eb;
-  font-size: 14.5px;          
-  font-weight: 700;           
-  letter-spacing: 0.1em;      
-  text-transform: uppercase;
-  text-shadow:
-    0 0 10px rgba(59,130,246,0.25),
-    0 0 2px rgba(255,255,255,0.15);
-
-  padding: 14px 12px;         
-  border: none;
-  z-index: 5;
-}
-
-
-tbody tr {
-  transition: filter .15s ease, transform .15s ease;
-}
-
-tbody td {
-  padding: 14px 12px;
-  text-align: center;
-  font-size: 15px;
-  line-height: 1.45;
-}
-/* INFORMATION COLUMN */
-td.info {
-  text-align: left;
-  font-size: 14px;
-  line-height: 1.45;
-  opacity: 0.9;
-}
-.no-results {
-  text-align: center;
-  opacity: .6;
-  padding: 20px;
-}
-tbody tr {
-  transition: filter .15s ease, transform .15s ease;
-}
-
-tbody tr td:first-child {
-  border-radius: 8px 0 0 8px;
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-}
-
-tbody tr td:last-child {
-  border-radius: 8px 0 0 8px;
-  font-size: 14px;
-  line-height: 1.6;
-  opacity: 0.9;
-}
-tbody td:nth-child(3),
-tbody td:nth-child(4) {
-  font-size: 14.5px;
-}
-/* ===== BUFF / DEBUFF COLORS ===== */
-.buff {
-  color: #4ade80; 
-  font-weight: 600;
-}
-
-.debuff {
-  color: #f87171; 
-  font-weight: 600;
-}
 </style>
 </head>
 
@@ -292,50 +166,26 @@ tbody td:nth-child(4) {
 
 <div class="app">
   <aside class="sidebar">
-    <a href="index.html" class="logo">GR</a>
-    <nav class="side-nav">
-      <a href="index.html" class="side-item">
-        <span class="label">Home</span>
-      </a>
-      <a href="ores.html" class="side-item">
-        <span class="label">Ores</span>
-      </a>
-      <a href="consumables.html" class="side-item active">
-        <span class="label">Items</span>
-      </a>
-    </nav>
+    <a class="logo">GR</a>
+    <a class="side-item active">Items</a>
   </aside>
 
   <main class="content">
     <h1 class="page-title">Consumables & Items</h1>
 
-    <div class="container">
-      <div class="filter-bar">
-
-        <div class="filter-group">
-          <label>Category</label>
-          <div class="tabs">
-            <button class="tab active" data-tab="consumables">Consumables</button>
-            <button class="tab" data-tab="items">Items</button>
-          </div>
-        </div>
-
-        <div class="filter-group">
-          <label>Search</label>
-          <input id="searchInput" placeholder="Search name...">
-        </div>
-
-        <div class="filter-spacer"></div>
-
-        <button class="reset-btn" id="resetBtn">Reset</button>
-        <div id="resultCount"></div>
+    <div class="filter-bar">
+      <div class="tabs">
+        <button class="tab active" data-tab="consumables">Consumables</button>
+        <button class="tab" data-tab="items">Items</button>
       </div>
-
-      <table>
-        <thead id="tableHead"></thead>
-        <tbody id="tableBody"></tbody>
-      </table>
+      <div class="filter-spacer"></div>
+      <input id="searchInput" placeholder="Search...">
     </div>
+
+    <table>
+      <thead id="thead"></thead>
+      <tbody id="tbody"></tbody>
+    </table>
   </main>
 </div>
 
@@ -343,139 +193,77 @@ tbody td:nth-child(4) {
 <script src="items-data.js"></script>
 
 <script>
-const tableHead = document.getElementById("tableHead");
-const tableBody = document.getElementById("tableBody");
+const thead = document.getElementById("thead");
+const tbody = document.getElementById("tbody");
 const searchInput = document.getElementById("searchInput");
-const resultCount = document.getElementById("resultCount");
+let tab = "consumables";
 
-let currentTab = "consumables";
-let search = "";
-
-const consumableHead = `
-<tr>
-  <th>Name</th>
-  <th>Duration</th>
-  <th>Buffs</th>
-  <th>Debuffs</th>
-  <th>Information</th>
-</tr>`;
-
-const itemHead = `
-<tr>
-  <th>Name</th>
-  <th>Rarity</th>
-  <th>Value</th>
-  <th>Crafting Uses</th>
-  <th>Information</th>
-</tr>`;
-
-  function formatEffects(list) {
-  return list
-    .map(e => {
-      if (e.trim().startsWith("+")) {
-        return `<span class="buff">${e}</span>`;
-      }
-      if (e.trim().startsWith("-")) {
-        return `<span class="debuff">${e}</span>`;
-      }
-      return e;
-    })
-    .join("<br>");
-}
-const rarityGradients = {
-  common: "linear-gradient(90deg, rgba(148,163,184,0.18), #0b1220 70%)",
-  uncommon: "linear-gradient(90deg, rgba(74,222,128,0.22), #0b1220 70%)",
-  rare: "linear-gradient(90deg, rgba(56,189,248,0.25), #0b1220 70%)",
-  epic: "linear-gradient(90deg, rgba(168,85,247,0.28), #0b1220 70%)",
-  legendary: "linear-gradient(90deg, rgba(250,204,21,0.30), #0b1220 70%)"
+const heads = {
+  consumables: `
+    <tr>
+      <th>Name</th><th>Duration</th><th>Buffs</th><th>Debuffs</th><th>Info</th>
+    </tr>`,
+  items: `
+    <tr>
+      <th>Name</th><th>Rarity</th><th>Value</th><th>Uses</th><th>Info</th>
+    </tr>`
 };
 
-function getRarityGradient(rarity) {
-  return rarityGradients[rarity?.toLowerCase()] 
-    || "linear-gradient(180deg, #0b1220, #020617)";
+function effects(arr) {
+  return arr.map(e =>
+    e.startsWith("+") ? `<span class="buff">${e}</span>` :
+    e.startsWith("-") ? `<span class="debuff">${e}</span>` : e
+  ).join("<br>");
 }
 
 function render() {
-  tableBody.innerHTML = "";
+  tbody.innerHTML = "";
+  thead.innerHTML = heads[tab];
+  const q = searchInput.value.toLowerCase();
 
-  if (currentTab === "consumables") {
-    tableHead.innerHTML = consumableHead;
-    const list = consumables.filter(c => c.name.toLowerCase().includes(search));
-
-    if (!list.length) {
-      tableBody.innerHTML = `<tr><td colspan="5" class="no-results">No consumables found</td></tr>`;
-    }
-
-    list.forEach(c => {
-      tableBody.innerHTML += `
-       <tr>
+  if (tab === "consumables") {
+    consumables.filter(c => c.name.toLowerCase().includes(q)).forEach(c => {
+      tbody.innerHTML += `
+        <tr>
           <td>${c.name}</td>
           <td>${c.duration} min</td>
-          <td>${formatEffects(c.buffs)}</td>
-          <td>${c.debuffs.length ? formatEffects(c.debuffs) : "-"}</td>
-          <td class="info">${c.description ?? "-"}</td>
+          <td>${effects(c.buffs)}</td>
+          <td>${effects(c.debuffs)}</td>
+          <td class="info">${c.description}</td>
         </tr>`;
     });
-
-    resultCount.textContent = `${list.length} consumables`;
-  }
-
-  if (currentTab === "items") {
-    tableHead.innerHTML = itemHead;
-    const list = items.filter(i => i.name.toLowerCase().includes(search));
-
-    if (!list.length) {
-      tableBody.innerHTML = `<tr><td colspan="5" class="no-results">No items found</td></tr>`;
-    }
-
-   list.forEach(i => {
-  tableBody.innerHTML += `
-   <tr class="rarity-row rarity-${i.rarity.toLowerCase()}">
-      <td>${i.name}</td>
-      <td class="rarity-${i.rarity.toLowerCase()}">${i.rarity}</td>
-      <td>${i.value ?? "-"}</td>
-      <td>${i.craftingUses.join("<br>")}</td>
-      <td class="info">${i.information.join("<br>")}</td>
-    </tr>`;
-});
-
-    resultCount.textContent = `${list.length} items`;
+  } else {
+    items.filter(i => i.name.toLowerCase().includes(q)).forEach(i => {
+      tbody.innerHTML += `
+        <tr class="rarity-row rarity-${i.rarity.toLowerCase()}">
+          <td>${i.name}</td>
+          <td class="rarity-${i.rarity.toLowerCase()}">${i.rarity}</td>
+          <td>${i.value}</td>
+          <td>${i.craftingUses.join("<br>")}</td>
+          <td class="info">${i.information.join("<br>")}</td>
+        </tr>`;
+    });
   }
 }
 
-document.querySelectorAll(".tab").forEach(tab => {
-  tab.onclick = () => {
-    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-    tab.classList.add("active");
-    currentTab = tab.dataset.tab;
+document.querySelectorAll(".tab").forEach(b =>
+  b.onclick = () => {
+    document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
+    b.classList.add("active");
+    tab = b.dataset.tab;
     render();
-  };
-});
-
-searchInput.oninput = () => {
-  search = searchInput.value.toLowerCase();
-  render();
-};
-
-document.getElementById("resetBtn").onclick = () => {
-  search = "";
-  searchInput.value = "";
-  render();
-};
-
-render();
-
-const fb = document.querySelector(".filter-bar");
-document.documentElement.style.setProperty(
-  "--filter-height",
-  fb.offsetHeight + "px"
+  }
 );
 
+searchInput.oninput = render;
+render();
 
-
+document.documentElement.style.setProperty(
+  "--filter-height",
+  document.querySelector(".filter-bar").offsetHeight + "px"
+);
 </script>
 
 </body>
 </html>
-
 
