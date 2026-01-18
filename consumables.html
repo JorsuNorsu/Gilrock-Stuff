@@ -314,10 +314,10 @@ function render() {
     tableHead.innerHTML = consumableHead;
     const list = consumables.filter(c => c.name.toLowerCase().includes(search));
 
-    list.forEach(c => {
-      tableBody.innerHTML += `
-        <tr>
-          <td>${c.name}</td>
+   list.forEach(c => {
+  tableBody.innerHTML += `
+    <tr class="rarity-${c.rarity.toLowerCase()}">
+      <td>${c.name}</td>
           <td>${c.duration} min</td>
           <td>${formatEffects(c.buffs)}</td>
           <td>${c.debuffs.length ? formatEffects(c.debuffs) : "-"}</td>
