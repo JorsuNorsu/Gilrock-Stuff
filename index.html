@@ -216,13 +216,20 @@ body {
 }
 
 .updates-card li {
-  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
 }
 
-.updates-card span {
+.updates-card .version {
+  white-space: nowrap;
+}
+
+.updates-card .date {
   color: rgba(255,255,255,0.5);
   font-size: 12px;
-  margin-left: 6px;
+  white-space: nowrap;
 }
 
 </style>
@@ -310,8 +317,16 @@ body {
 <div class="updates-card">
   <h3>Updates</h3>
   <ul>
-    <li><strong>v1.1</strong> – Consumables & Items added <span>(Jan 18 2026)</span></li>
-    <li><strong>v1.0</strong> – Ore browser released <span>(Jan 16 2026)</span></li>
+ <li>
+  <span class="version"><strong>v1.1</strong> – Consumables & Items added</span>
+  <span class="date">(Jan 18 2026)</span>
+</li>
+
+<li>
+  <span class="version"><strong>v1.0</strong> – Ore browser released</span>
+  <span class="date">(Jan 16 2026)</span>
+</li>
+
   </ul>
 </div>
     </div>
@@ -320,6 +335,7 @@ body {
 
 </body>
 </html>
+
 
 
 
