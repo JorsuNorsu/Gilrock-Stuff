@@ -26,17 +26,7 @@ body {
 }
 
 /* ===== SIDEBAR ===== */
-.sidebar {
-  width: 96px;
-  background: linear-gradient(180deg, #0b1220, #020617);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px 0;
-  position: sticky;
-  top: 0;
-  height: 100vh;
-}
+<link rel="stylesheet" href="sidebar.css">
 
 .logo {
   font-size: 44px;
@@ -44,68 +34,6 @@ body {
   color: var(--accent);
   margin-bottom: 40px;
   text-decoration: none;
-}
-
-.side-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  width: 100%;
-}
-
-/* ===== SIDEBAR NAV ===== */
-.side-item {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-
-  padding: 14px 0;
-  text-decoration: none;
-  color: white;
-  opacity: 0.75;
-
-  transition: opacity .2s ease, box-shadow .2s ease;
-}
-
-.side-item:hover {
-  opacity: 1;
-  box-shadow: inset 0 0 0 9999px rgba(255,255,255,0.06);
-}
-
-.side-item.active {
-  opacity: 1;
-}
-.side-item svg {
-  width: 34px;
-  height: 34px;
-  fill: white;
-}
-
-/* ACTIVE BAR */
-.side-item.active::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  top: 15%;
-  width: 3px;
-  height: 70%;
-  background: var(--accent);
-  border-radius: 2px;
-}
-
-/* ICON */
-.side-item .icon {
-  font-size: 26px;
-  line-height: 1;
-}
-
-/* LABEL */
-.side-item .label {
-  font-size: 12px;
-  opacity: .9;
-}
 
 
 /* ===== CONTENT ===== */
