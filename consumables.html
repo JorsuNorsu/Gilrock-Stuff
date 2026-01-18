@@ -157,17 +157,7 @@ body {
   color: white;
   border: 1px solid rgba(255,255,255,.15);
 }
-<div class="filter-group" id="buffFilterGroup">
-  <label>Buff Type</label>
-  <select id="buffFilter">
-    <option value="all">All Buffs</option>
-    <option value="luck">Luck</option>
-    <option value="damage">Damage</option>
-    <option value="mining speed">Mining Speed</option>
-    <option value="movement speed">Movement Speed</option>
-    <option value="critical chance">Critical Chance</option>
-  </select>
-</div>
+
 .filter-spacer { flex: 1; }
 
 .reset-btn {
@@ -307,7 +297,17 @@ td.info {
     <label>Search</label>
     <input id="searchInput" placeholder="Search name...">
   </div>
-
+<div class="filter-group" id="buffFilterGroup">
+  <label>Buff Type</label>
+  <select id="buffFilter">
+    <option value="all">All Buffs</option>
+    <option value="luck">Luck</option>
+    <option value="damage">Damage</option>
+    <option value="mining">Mining Speed</option>
+    <option value="movement">Movement Speed</option>
+    <option value="critical">Critical Chance</option>
+  </select>
+</div>
   <div class="filter-spacer"></div>
 
   <button class="reset-btn" id="resetBtn">Reset</button>
